@@ -30,7 +30,6 @@ internal sealed partial class DotNetEditorPlugin : EditorPlugin
 
     private MSBuildPanel _msbuildPanel;
 
-    private Button _msbuildPanelButton;
     private Button _toolBarBuildButton;
 
     private DotNetExportPlugin _exportPlugin;
@@ -87,7 +86,7 @@ internal sealed partial class DotNetEditorPlugin : EditorPlugin
         }
 
         // Show .NET features.
-        _msbuildPanelButton.Show();
+        _msbuildPanel.Open();
         _toolBarBuildButton.Show();
 
         return true;
@@ -190,17 +189,9 @@ internal sealed partial class DotNetEditorPlugin : EditorPlugin
             .WithGodotDebugDefaults());
     }
 
-    private void UpdateMSBuildPanelButtonIcon()
-    {
-        if (_msbuildPanelButton is not null)
-        {
-            _msbuildPanelButton.Icon = _msbuildPanel.GetBuildStateIcon();
-        }
-    }
-
     public void MakeMSBuildPanelVisible()
     {
-        MakeBottomPanelItemVisible(_msbuildPanel);
+        _msbuildPanel.MakeVisible();
     }
 
     protected override void _EnterTree()
@@ -226,8 +217,7 @@ internal sealed partial class DotNetEditorPlugin : EditorPlugin
         // MSBuild panel.
 
         _msbuildPanel = new MSBuildPanel();
-        _msbuildPanel.BuildStateChanged += UpdateMSBuildPanelButtonIcon;
-        _msbuildPanelButton = AddControlToBottomPanel(_msbuildPanel, "MSBuild");
+        AddDock(_msbuildPanel);
 
         // .NET tools menu.
 
@@ -261,7 +251,7 @@ internal sealed partial class DotNetEditorPlugin : EditorPlugin
         }
         else
         {
-            _msbuildPanelButton.Hide();
+            _msbuildPanel.Close();
             _toolBarBuildButton.Hide();
         }
 
@@ -357,7 +347,6 @@ internal sealed partial class DotNetEditorPlugin : EditorPlugin
         _toolsMenuPopup?.QueueFree();
 
         // MSBuild panel.
-        _msbuildPanelButton?.QueueFree();
         _msbuildPanel?.QueueFree();
 
         _confirmCreateSlnDialog?.QueueFree();

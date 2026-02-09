@@ -7,10 +7,8 @@ using Godot.EditorIntegration.Internals;
 namespace Godot.EditorIntegration.Build.UI;
 
 [GodotClass]
-internal sealed partial class MSBuildPanel : MarginContainer
+internal sealed partial class MSBuildPanel : EditorDock
 {
-    public event Action? BuildStateChanged;
-
 #nullable disable
     private MenuButton _buildMenuButton;
     private Button _openLogsFolderButton;
@@ -26,29 +24,43 @@ internal sealed partial class MSBuildPanel : MarginContainer
     private readonly Lock _pendingBuildLogTextLock = new();
     private string _pendingBuildLogText = string.Empty;
 
-    public Texture2D? GetBuildStateIcon()
+    public MSBuildPanel()
     {
+        Name = "MSBuild";
+        IconName = "BuildDotNet";
+        DefaultSlot = DockSlot.Bottom;
+        AvailableLayouts = DockLayout.Horizontal | DockLayout.Floating;
+        Global = false;
+        Transient = true;
+        ClipContents = false;
+    }
+
+    public void UpdateBuildStateIcon()
+    {
+        Texture2D? icon = null;
+
         if (IsBuildingOngoing)
         {
-            return GetThemeIcon(EditorThemeNames.Stop, EditorThemeNames.EditorIcons);
+            icon = GetThemeIcon(EditorThemeNames.Stop, EditorThemeNames.EditorIcons);
         }
 
         if (_problemsView.WarningCount > 0 && _problemsView.ErrorCount > 0)
         {
-            return GetThemeIcon(EditorThemeNames.ErrorWarning, EditorThemeNames.EditorIcons);
+            icon = GetThemeIcon(EditorThemeNames.ErrorWarning, EditorThemeNames.EditorIcons);
         }
 
         if (_problemsView.WarningCount > 0)
         {
-            return GetThemeIcon(EditorThemeNames.Warning, EditorThemeNames.EditorIcons);
+            icon = GetThemeIcon(EditorThemeNames.Warning, EditorThemeNames.EditorIcons);
         }
 
         if (_problemsView.ErrorCount > 0)
         {
-            return GetThemeIcon(EditorThemeNames.Error, EditorThemeNames.EditorIcons);
+            icon = GetThemeIcon(EditorThemeNames.Error, EditorThemeNames.EditorIcons);
         }
 
-        return null;
+        DockIcon = icon;
+        ForceShowIcon = icon is not null;
     }
 
     private enum BuildMenuOptions
@@ -152,7 +164,7 @@ internal sealed partial class MSBuildPanel : MarginContainer
 
         _problemsView.SetDiagnostics([diagnostic]);
 
-        OnBuildStateChanged();
+        UpdateBuildStateIcon();
     }
 
     private void BuildStarted(CommonOptions buildOptions)
@@ -166,7 +178,7 @@ internal sealed partial class MSBuildPanel : MarginContainer
 
         _problemsView.UpdateProblemsView();
 
-        OnBuildStateChanged();
+        UpdateBuildStateIcon();
     }
 
     private void BuildFinished(BuildResult result)
@@ -182,12 +194,7 @@ internal sealed partial class MSBuildPanel : MarginContainer
 
         _problemsView.UpdateProblemsView();
 
-        OnBuildStateChanged();
-    }
-
-    private void OnBuildStateChanged()
-    {
-        BuildStateChanged?.Invoke();
+        UpdateBuildStateIcon();
     }
 
     private void UpdateBuildLogText()
