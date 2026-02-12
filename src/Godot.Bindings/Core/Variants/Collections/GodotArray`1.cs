@@ -71,8 +71,6 @@ public sealed class GodotArray<[MustBeVariant] T> :
         get => ref _underlyingArray.NativeValue;
     }
 
-    private readonly WeakReference<IDisposable>? _weakReferenceToSelf;
-
     /// <summary>
     /// Constructs a new empty <see cref="GodotArray{T}"/>.
     /// </summary>
@@ -80,7 +78,6 @@ public sealed class GodotArray<[MustBeVariant] T> :
     public GodotArray()
     {
         _underlyingArray = [];
-        _weakReferenceToSelf = DisposablesTracker.RegisterDisposable(this);
     }
 
     /// <summary>
@@ -91,7 +88,6 @@ public sealed class GodotArray<[MustBeVariant] T> :
     private GodotArray(GodotArray underlyingArray)
     {
         _underlyingArray = underlyingArray;
-        _weakReferenceToSelf = DisposablesTracker.RegisterDisposable(this);
     }
 
     /// <summary>
@@ -105,8 +101,6 @@ public sealed class GodotArray<[MustBeVariant] T> :
     public GodotArray(IEnumerable<T> collection)
     {
         ArgumentNullException.ThrowIfNull(collection);
-
-        _weakReferenceToSelf = DisposablesTracker.RegisterDisposable(this);
 
         // If the collection is another Godot Array, we can add the items
         // with a single interop call.
@@ -134,7 +128,6 @@ public sealed class GodotArray<[MustBeVariant] T> :
     public GodotArray(ReadOnlySpan<T> collection)
     {
         _underlyingArray = GodotArray.CreateTakingOwnership(NativeGodotArray.Create(collection));
-        _weakReferenceToSelf = DisposablesTracker.RegisterDisposable(this);
     }
 
     /// <summary>
@@ -188,33 +181,11 @@ public sealed class GodotArray<[MustBeVariant] T> :
     }
 
     /// <summary>
-    /// Releases the unmanaged <see cref="GodotArray{T}"/> instance.
-    /// </summary>
-    ~GodotArray()
-    {
-        Dispose(false);
-    }
-
-    /// <summary>
     /// Disposes of this <see cref="GodotArray{T}"/>.
     /// </summary>
     public void Dispose()
     {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    private void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            _underlyingArray.Dispose();
-        }
-
-        if (_weakReferenceToSelf is not null)
-        {
-            DisposablesTracker.UnregisterDisposable(_weakReferenceToSelf);
-        }
+        _underlyingArray.Dispose();
     }
 
     /// <summary>
@@ -418,7 +389,7 @@ public sealed class GodotArray<[MustBeVariant] T> :
         }
 
         ref NativeGodotArray self = ref NativeValue.DangerousSelfRef;
-        NativeGodotVariant* ptrw = self.GetPtrw();
+        NativeGodotVariant* ptr = self.GetPtr();
 
         using NativeGodotVariant variantValue = Marshalling.ConvertToVariant(in item);
 
@@ -428,7 +399,7 @@ public sealed class GodotArray<[MustBeVariant] T> :
         {
             int mid = lo + ((hi - lo) >> 1);
 
-            NativeGodotVariant midItem = ptrw[mid];
+            NativeGodotVariant midItem = ptr[mid];
             int order = NativeGodotVariant.Compare(midItem, variantValue);
 
             if (order == 0)

@@ -108,7 +108,7 @@ public sealed class GodotDictionary :
         {
             ref NativeGodotDictionary self = ref NativeValue.DangerousSelfRef;
 
-            NativeGodotVariant* value = self.GetPtrw(key.NativeValue.DangerousSelfRef);
+            NativeGodotVariant* value = self.GetPtr(key.NativeValue.DangerousSelfRef);
             if (value is null)
             {
                 throw new KeyNotFoundException(SR.FormatKeyNotFound_DictionaryKeyNotFound(key));
@@ -260,7 +260,7 @@ public sealed class GodotDictionary :
 
         NativeGodotVariant itemKey = item.Key.NativeValue.DangerousSelfRef;
 
-        NativeGodotVariant* value = self.GetPtrw(itemKey);
+        NativeGodotVariant* value = self.GetPtr(itemKey);
         if (value is null)
         {
             return false;
@@ -409,7 +409,7 @@ public sealed class GodotDictionary :
 
         NativeGodotVariant keyNative = key.NativeValue.DangerousSelfRef;
 
-        NativeGodotVariant* valueNative = self.GetPtrw(keyNative);
+        NativeGodotVariant* valueNative = self.GetPtr(keyNative);
         if (valueNative is null)
         {
             value = default;
@@ -424,8 +424,8 @@ public sealed class GodotDictionary :
     {
         ref NativeGodotDictionary self = ref NativeValue.DangerousSelfRef;
 
-        NativeGodotVariant key = NativeGodotDictionary.Keys(in self).GetPtrw()[index];
-        NativeGodotVariant value = NativeGodotDictionary.Values(in self).GetPtrw()[index];
+        NativeGodotVariant key = NativeGodotDictionary.Keys(in self).GetPtr()[index];
+        NativeGodotVariant value = NativeGodotDictionary.Values(in self).GetPtr()[index];
 
         return new KeyValuePair<Variant, Variant>(
             Variant.CreateTakingOwnership(key),

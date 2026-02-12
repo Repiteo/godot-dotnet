@@ -192,6 +192,33 @@ public sealed class PackedVector4Array :
         return AsSpan().Slice(start, length);
     }
 
+    internal ReadOnlySpan<Vector4> AsReadOnlySpan()
+    {
+        return NativeValue.DangerousSelfRef.AsReadOnlySpan();
+    }
+
+    internal ReadOnlySpan<Vector4> AsReadOnlySpan(int start)
+    {
+        return AsReadOnlySpan().Slice(start);
+    }
+
+    internal ReadOnlySpan<Vector4> AsReadOnlySpan(int start, int length)
+    {
+        return AsReadOnlySpan().Slice(start, length);
+    }
+
+    internal ReadOnlySpan<Vector4> AsReadOnlySpan(Index startIndex)
+    {
+        int actualIndex = startIndex.GetOffset(Count);
+        return AsReadOnlySpan().Slice(actualIndex);
+    }
+
+    internal ReadOnlySpan<Vector4> AsReadOnlySpan(Range range)
+    {
+        (int start, int length) = range.GetOffsetAndLength(Count);
+        return AsReadOnlySpan().Slice(start, length);
+    }
+
     /// <summary>
     /// Returns the item at the given <paramref name="index"/>.
     /// </summary>
@@ -201,7 +228,7 @@ public sealed class PackedVector4Array :
     /// <value>The <see langword="Vector4"/> item at the given <paramref name="index"/>.</value>
     public Vector4 this[int index]
     {
-        get => AsSpan()[index];
+        get => AsReadOnlySpan()[index];
         set => AsSpan()[index] = value;
     }
 
@@ -240,7 +267,7 @@ public sealed class PackedVector4Array :
         {
             // If the collection is another Packed Array, we can add the items
             // with a Span copy instead of iterating each element.
-            AddRangeCore(packedArray.AsSpan());
+            AddRangeCore(packedArray.AsReadOnlySpan());
             return;
         }
 
@@ -323,7 +350,7 @@ public sealed class PackedVector4Array :
         ArgumentOutOfRangeException.ThrowIfNegative(arrayIndex);
         ArgumentOutOfRangeException.ThrowIfGreaterThan(arrayIndex, array.Length - Count);
 
-        AsSpan().CopyTo(array.AsSpan(arrayIndex));
+        AsReadOnlySpan().CopyTo(array.AsSpan(arrayIndex));
     }
 
     /// <summary>
@@ -356,7 +383,7 @@ public sealed class PackedVector4Array :
     /// <returns>The index of the item, or -1 if not found.</returns>
     public int IndexOf(Vector4 item)
     {
-        return AsSpan().IndexOf(item);
+        return AsReadOnlySpan().IndexOf(item);
     }
 
     /// <summary>
@@ -370,7 +397,7 @@ public sealed class PackedVector4Array :
     /// <returns>The index of the item, or -1 if not found.</returns>
     public int IndexOf(Vector4 item, int index)
     {
-        return AsSpan(index).IndexOf(item);
+        return AsReadOnlySpan(index).IndexOf(item);
     }
 
     /// <summary>
@@ -381,7 +408,7 @@ public sealed class PackedVector4Array :
     /// <returns>The index of the item, or -1 if not found.</returns>
     public int LastIndexOf(Vector4 item)
     {
-        return AsSpan().LastIndexOf(item);
+        return AsReadOnlySpan().LastIndexOf(item);
     }
 
     /// <summary>
@@ -396,7 +423,7 @@ public sealed class PackedVector4Array :
     /// <returns>The index of the item, or -1 if not found.</returns>
     public int LastIndexOf(Vector4 item, int index)
     {
-        return AsSpan(index).LastIndexOf(item);
+        return AsReadOnlySpan(index).LastIndexOf(item);
     }
 
     /// <summary>
@@ -636,8 +663,8 @@ public sealed class PackedVector4Array :
     /// Consider using <see cref="AsSpan()"/> instead.
     /// </summary>
     /// <returns>A C# array representation of this array.</returns>
-    public unsafe Vector4[] ToArray()
+    public Vector4[] ToArray()
     {
-        return AsSpan().ToArray();
+        return AsReadOnlySpan().ToArray();
     }
 }

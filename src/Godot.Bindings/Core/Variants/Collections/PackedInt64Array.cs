@@ -192,6 +192,33 @@ public sealed class PackedInt64Array :
         return AsSpan().Slice(start, length);
     }
 
+    internal ReadOnlySpan<long> AsReadOnlySpan()
+    {
+        return NativeValue.DangerousSelfRef.AsReadOnlySpan();
+    }
+
+    internal ReadOnlySpan<long> AsReadOnlySpan(int start)
+    {
+        return AsReadOnlySpan().Slice(start);
+    }
+
+    internal ReadOnlySpan<long> AsReadOnlySpan(int start, int length)
+    {
+        return AsReadOnlySpan().Slice(start, length);
+    }
+
+    internal ReadOnlySpan<long> AsReadOnlySpan(Index startIndex)
+    {
+        int actualIndex = startIndex.GetOffset(Count);
+        return AsReadOnlySpan().Slice(actualIndex);
+    }
+
+    internal ReadOnlySpan<long> AsReadOnlySpan(Range range)
+    {
+        (int start, int length) = range.GetOffsetAndLength(Count);
+        return AsReadOnlySpan().Slice(start, length);
+    }
+
     /// <summary>
     /// Returns the item at the given <paramref name="index"/>.
     /// </summary>
@@ -201,7 +228,7 @@ public sealed class PackedInt64Array :
     /// <value>The <see langword="long"/> item at the given <paramref name="index"/>.</value>
     public long this[int index]
     {
-        get => AsSpan()[index];
+        get => AsReadOnlySpan()[index];
         set => AsSpan()[index] = value;
     }
 
@@ -240,7 +267,7 @@ public sealed class PackedInt64Array :
         {
             // If the collection is another Packed Array, we can add the items
             // with a Span copy instead of iterating each element.
-            AddRangeCore(packedArray.AsSpan());
+            AddRangeCore(packedArray.AsReadOnlySpan());
             return;
         }
 
@@ -323,7 +350,7 @@ public sealed class PackedInt64Array :
         ArgumentOutOfRangeException.ThrowIfNegative(arrayIndex);
         ArgumentOutOfRangeException.ThrowIfGreaterThan(arrayIndex, array.Length - Count);
 
-        AsSpan().CopyTo(array.AsSpan(arrayIndex));
+        AsReadOnlySpan().CopyTo(array.AsSpan(arrayIndex));
     }
 
     /// <summary>
@@ -356,7 +383,7 @@ public sealed class PackedInt64Array :
     /// <returns>The index of the item, or -1 if not found.</returns>
     public int IndexOf(long item)
     {
-        return AsSpan().IndexOf(item);
+        return AsReadOnlySpan().IndexOf(item);
     }
 
     /// <summary>
@@ -370,7 +397,7 @@ public sealed class PackedInt64Array :
     /// <returns>The index of the item, or -1 if not found.</returns>
     public int IndexOf(long item, int index)
     {
-        return AsSpan(index).IndexOf(item);
+        return AsReadOnlySpan(index).IndexOf(item);
     }
 
     /// <summary>
@@ -381,7 +408,7 @@ public sealed class PackedInt64Array :
     /// <returns>The index of the item, or -1 if not found.</returns>
     public int LastIndexOf(long item)
     {
-        return AsSpan().LastIndexOf(item);
+        return AsReadOnlySpan().LastIndexOf(item);
     }
 
     /// <summary>
@@ -396,7 +423,7 @@ public sealed class PackedInt64Array :
     /// <returns>The index of the item, or -1 if not found.</returns>
     public int LastIndexOf(long item, int index)
     {
-        return AsSpan(index).LastIndexOf(item);
+        return AsReadOnlySpan(index).LastIndexOf(item);
     }
 
     /// <summary>
@@ -635,8 +662,8 @@ public sealed class PackedInt64Array :
     /// Consider using <see cref="AsSpan()"/> instead.
     /// </summary>
     /// <returns>A C# array representation of this array.</returns>
-    public unsafe long[] ToArray()
+    public long[] ToArray()
     {
-        return AsSpan().ToArray();
+        return AsReadOnlySpan().ToArray();
     }
 }

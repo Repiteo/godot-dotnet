@@ -150,8 +150,8 @@ public sealed class PackedStringArray :
     {
         get
         {
-            NativeGodotString* ptrw = NativeValue.DangerousSelfRef.GetPtrw();
-            return ptrw[index].ToString();
+            NativeGodotString* ptr = NativeValue.DangerousSelfRef.GetPtr();
+            return ptr[index].ToString();
         }
 
         set
@@ -257,12 +257,12 @@ public sealed class PackedStringArray :
 
         unsafe
         {
-            NativeGodotString* ptrw = NativeValue.DangerousSelfRef.GetPtrw();
+            NativeGodotString* ptr = NativeValue.DangerousSelfRef.GetPtr();
 
             int count = Count;
             for (int i = 0; i < count; i++)
             {
-                array[arrayIndex] = ptrw[i].ToString();
+                array[arrayIndex] = ptr[i].ToString();
                 arrayIndex++;
             }
         }

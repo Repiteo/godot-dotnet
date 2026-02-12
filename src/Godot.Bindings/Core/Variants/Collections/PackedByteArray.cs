@@ -192,6 +192,33 @@ public sealed class PackedByteArray :
         return AsSpan().Slice(start, length);
     }
 
+    internal ReadOnlySpan<byte> AsReadOnlySpan()
+    {
+        return NativeValue.DangerousSelfRef.AsReadOnlySpan();
+    }
+
+    internal ReadOnlySpan<byte> AsReadOnlySpan(int start)
+    {
+        return AsReadOnlySpan().Slice(start);
+    }
+
+    internal ReadOnlySpan<byte> AsReadOnlySpan(int start, int length)
+    {
+        return AsReadOnlySpan().Slice(start, length);
+    }
+
+    internal ReadOnlySpan<byte> AsReadOnlySpan(Index startIndex)
+    {
+        int actualIndex = startIndex.GetOffset(Count);
+        return AsReadOnlySpan().Slice(actualIndex);
+    }
+
+    internal ReadOnlySpan<byte> AsReadOnlySpan(Range range)
+    {
+        (int start, int length) = range.GetOffsetAndLength(Count);
+        return AsReadOnlySpan().Slice(start, length);
+    }
+
     /// <summary>
     /// Returns the item at the given <paramref name="index"/>.
     /// </summary>
@@ -201,7 +228,7 @@ public sealed class PackedByteArray :
     /// <value>The <see langword="byte"/> item at the given <paramref name="index"/>.</value>
     public byte this[int index]
     {
-        get => AsSpan()[index];
+        get => AsReadOnlySpan()[index];
         set => AsSpan()[index] = value;
     }
 
@@ -240,7 +267,7 @@ public sealed class PackedByteArray :
         {
             // If the collection is another Packed Array, we can add the items
             // with a Span copy instead of iterating each element.
-            AddRangeCore(packedArray.AsSpan());
+            AddRangeCore(packedArray.AsReadOnlySpan());
             return;
         }
 
@@ -323,7 +350,7 @@ public sealed class PackedByteArray :
         ArgumentOutOfRangeException.ThrowIfNegative(arrayIndex);
         ArgumentOutOfRangeException.ThrowIfGreaterThan(arrayIndex, array.Length - Count);
 
-        AsSpan().CopyTo(array.AsSpan(arrayIndex));
+        AsReadOnlySpan().CopyTo(array.AsSpan(arrayIndex));
     }
 
     /// <summary>
@@ -356,7 +383,7 @@ public sealed class PackedByteArray :
     /// <returns>The index of the item, or -1 if not found.</returns>
     public int IndexOf(byte item)
     {
-        return AsSpan().IndexOf(item);
+        return AsReadOnlySpan().IndexOf(item);
     }
 
     /// <summary>
@@ -370,7 +397,7 @@ public sealed class PackedByteArray :
     /// <returns>The index of the item, or -1 if not found.</returns>
     public int IndexOf(byte item, int index)
     {
-        return AsSpan(index).IndexOf(item);
+        return AsReadOnlySpan(index).IndexOf(item);
     }
 
     /// <summary>
@@ -381,7 +408,7 @@ public sealed class PackedByteArray :
     /// <returns>The index of the item, or -1 if not found.</returns>
     public int LastIndexOf(byte item)
     {
-        return AsSpan().LastIndexOf(item);
+        return AsReadOnlySpan().LastIndexOf(item);
     }
 
     /// <summary>
@@ -396,7 +423,7 @@ public sealed class PackedByteArray :
     /// <returns>The index of the item, or -1 if not found.</returns>
     public int LastIndexOf(byte item, int index)
     {
-        return AsSpan(index).LastIndexOf(item);
+        return AsReadOnlySpan(index).LastIndexOf(item);
     }
 
     /// <summary>
@@ -644,8 +671,8 @@ public sealed class PackedByteArray :
     /// Consider using <see cref="AsSpan()"/> instead.
     /// </summary>
     /// <returns>A C# array representation of this array.</returns>
-    public unsafe byte[] ToArray()
+    public byte[] ToArray()
     {
-        return AsSpan().ToArray();
+        return AsReadOnlySpan().ToArray();
     }
 }

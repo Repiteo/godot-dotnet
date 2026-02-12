@@ -70,8 +70,6 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
         get => ref _underlyingDict.NativeValue;
     }
 
-    private readonly WeakReference<IDisposable>? _weakReferenceToSelf;
-
     /// <summary>
     /// Constructs a new empty <see cref="GodotDictionary{TKey, TValue}"/>.
     /// </summary>
@@ -79,7 +77,6 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
     public GodotDictionary()
     {
         _underlyingDict = [];
-        _weakReferenceToSelf = DisposablesTracker.RegisterDisposable(this);
     }
 
     /// <summary>
@@ -90,7 +87,6 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
     private GodotDictionary(GodotDictionary underlyingDictionary)
     {
         _underlyingDict = underlyingDictionary;
-        _weakReferenceToSelf = DisposablesTracker.RegisterDisposable(this);
     }
 
     /// <summary>
@@ -104,8 +100,6 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
     public GodotDictionary(IDictionary<TKey, TValue> dictionary)
     {
         ArgumentNullException.ThrowIfNull(dictionary);
-
-        _weakReferenceToSelf = DisposablesTracker.RegisterDisposable(this);
 
         // If the collection is another Godot Dictionary, we can add the items
         // with a single interop call.
@@ -172,33 +166,11 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
     }
 
     /// <summary>
-    /// Releases the unmanaged <see cref="GodotDictionary{TKey, TValue}"/> instance.
-    /// </summary>
-    ~GodotDictionary()
-    {
-        Dispose(false);
-    }
-
-    /// <summary>
     /// Disposes of this <see cref="GodotDictionary{TKey, TValue}"/>.
     /// </summary>
     public void Dispose()
     {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    private void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            _underlyingDict.Dispose();
-        }
-
-        if (_weakReferenceToSelf is not null)
-        {
-            DisposablesTracker.UnregisterDisposable(_weakReferenceToSelf);
-        }
+        _underlyingDict.Dispose();
     }
 
     /// <summary>
@@ -219,7 +191,7 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
             using NativeGodotVariant variantKey = Marshalling.ConvertToVariant(in key);
             ref NativeGodotDictionary self = ref NativeValue.DangerousSelfRef;
 
-            NativeGodotVariant* variantValue = self.GetPtrw(variantKey);
+            NativeGodotVariant* variantValue = self.GetPtr(variantKey);
             if (variantValue is null)
             {
                 throw new KeyNotFoundException(SR.FormatKeyNotFound_DictionaryKeyNotFound(key));
@@ -356,7 +328,7 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
 
         using NativeGodotVariant variantItemKey = Marshalling.ConvertToVariant(item.Key);
 
-        NativeGodotVariant* variantValue = self.GetPtrw(variantItemKey);
+        NativeGodotVariant* variantValue = self.GetPtr(variantItemKey);
         if (variantValue is null)
         {
             return false;
@@ -496,7 +468,7 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
 
         using NativeGodotVariant variantKey = Marshalling.ConvertToVariant(in key);
 
-        NativeGodotVariant* variantValue = self.GetPtrw(variantKey);
+        NativeGodotVariant* variantValue = self.GetPtr(variantKey);
         if (variantValue is null)
         {
             value = default;
@@ -511,8 +483,8 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
     {
         ref NativeGodotDictionary self = ref NativeValue.DangerousSelfRef;
 
-        NativeGodotVariant key = NativeGodotDictionary.Keys(in self).GetPtrw()[index];
-        NativeGodotVariant value = NativeGodotDictionary.Values(in self).GetPtrw()[index];
+        NativeGodotVariant key = NativeGodotDictionary.Keys(in self).GetPtr()[index];
+        NativeGodotVariant value = NativeGodotDictionary.Values(in self).GetPtr()[index];
 
         return new KeyValuePair<TKey, TValue>(
             Marshalling.ConvertFromVariant<TKey>(key),

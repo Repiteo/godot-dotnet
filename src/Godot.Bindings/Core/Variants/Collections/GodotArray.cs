@@ -418,7 +418,7 @@ public sealed class GodotArray :
         }
 
         ref NativeGodotArray self = ref NativeValue.DangerousSelfRef;
-        NativeGodotVariant* ptrw = self.GetPtrw();
+        NativeGodotVariant* ptr = self.GetPtr();
         NativeGodotVariant variantValue = item.NativeValue.DangerousSelfRef;
 
         int lo = index;
@@ -427,7 +427,7 @@ public sealed class GodotArray :
         {
             int mid = lo + ((hi - lo) >> 1);
 
-            NativeGodotVariant midItem = ptrw[mid];
+            NativeGodotVariant midItem = ptr[mid];
             int order = NativeGodotVariant.Compare(midItem, variantValue);
 
             if (order == 0)
@@ -513,12 +513,12 @@ public sealed class GodotArray :
 
         unsafe
         {
-            NativeGodotVariant* ptrw = NativeValue.DangerousSelfRef.GetPtrw();
+            NativeGodotVariant* ptr = NativeValue.DangerousSelfRef.GetPtr();
 
             int count = Count;
             for (int i = 0; i < count; i++)
             {
-                array[arrayIndex] = Variant.CreateCopying(ptrw[i]);
+                array[arrayIndex] = Variant.CreateCopying(ptr[i]);
                 arrayIndex++;
             }
         }
@@ -1040,8 +1040,8 @@ public sealed class GodotArray :
         ArgumentOutOfRangeException.ThrowIfNegative(index);
         ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index, Count);
 
-        NativeGodotVariant* ptrw = NativeValue.DangerousSelfRef.GetPtrw();
-        elem = ptrw[index];
+        NativeGodotVariant* ptr = NativeValue.DangerousSelfRef.GetPtr();
+        elem = ptr[index];
     }
 
     private void ThrowIfReadOnly()

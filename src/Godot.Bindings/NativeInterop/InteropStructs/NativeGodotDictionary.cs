@@ -27,6 +27,11 @@ partial struct NativeGodotDictionary
         get => _p is not null && GetIsReadOnly(in this);
     }
 
+    internal readonly unsafe NativeGodotVariant* GetPtr(scoped in NativeGodotVariant key)
+    {
+        return GodotBridge.GDExtensionInterface.dictionary_operator_index_const(GetUnsafeAddress(), key.GetUnsafeAddress());
+    }
+
     internal readonly unsafe NativeGodotVariant* GetPtrw(scoped in NativeGodotVariant key)
     {
         return GodotBridge.GDExtensionInterface.dictionary_operator_index(GetUnsafeAddress(), key.GetUnsafeAddress());

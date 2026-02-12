@@ -34,7 +34,7 @@ partial struct NativeGodotPackedStringArray
             return [];
         }
 
-        NativeGodotString* buffer = GetPtrw();
+        NativeGodotString* buffer = GetPtr();
 
         string[] destination = new string[size];
         for (int i = 0; i < size; i++)

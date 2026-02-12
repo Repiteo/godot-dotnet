@@ -238,6 +238,20 @@ internal sealed class BuiltInClassesBindingsDataCollector : BindingsDataCollecto
                 if (!string.IsNullOrEmpty(packedArrayName))
                 {
                     var indexerTypePointer = indexerTypeUnmanaged.MakePointerType();
+
+                    var getPtrMethod = new MethodInfo("GetPtr")
+                    {
+                        Attributes = { "[global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]" },
+                        VisibilityAttributes = VisibilityAttributes.Assembly,
+                        IsReadOnly = true,
+                        ReturnParameter = ReturnInfo.FromType(indexerTypePointer),
+                        Body = MethodBody.CreateUnsafe(writer =>
+                        {
+                            writer.WriteLine($"return ({indexerTypePointer.FullNameWithGlobal})global::Godot.Bridge.GodotBridge.GDExtensionInterface.{packedArrayName}_operator_index_const(GetUnsafeAddress(), 0);");
+                        }),
+                    };
+                    type.DeclaredMethods.Add(getPtrMethod);
+
                     var getPtrwMethod = new MethodInfo("GetPtrw")
                     {
                         Attributes = { "[global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]" },
@@ -270,6 +284,18 @@ internal sealed class BuiltInClassesBindingsDataCollector : BindingsDataCollecto
                         }),
                     };
                     type.DeclaredMethods.Add(asSpanMethod);
+
+                    var asReadOnlySpanMethod = new MethodInfo("AsReadOnlySpan")
+                    {
+                        VisibilityAttributes = VisibilityAttributes.Assembly,
+                        IsReadOnly = true,
+                        ReturnParameter = ReturnInfo.FromType(readonlySpanType),
+                        Body = MethodBody.CreateUnsafe(writer =>
+                        {
+                            writer.WriteLine($"return new {readonlySpanType.FullNameWithGlobal}(GetPtr(), Size);");
+                        }),
+                    };
+                    type.DeclaredMethods.Add(asReadOnlySpanMethod);
 
                     // Also add a Create overload to create the packed array from the Span type.
                     var createMethod = new MethodInfo("Create")

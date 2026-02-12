@@ -32,6 +32,11 @@ partial struct NativeGodotArray
         get => _p is not null && GetIsReadOnly(in this);
     }
 
+    internal readonly unsafe NativeGodotVariant* GetPtr()
+    {
+        return GodotBridge.GDExtensionInterface.array_operator_index_const(GetUnsafeAddress(), 0);
+    }
+
     internal readonly unsafe NativeGodotVariant* GetPtrw()
     {
         return GodotBridge.GDExtensionInterface.array_operator_index(GetUnsafeAddress(), 0);
@@ -61,7 +66,7 @@ partial struct NativeGodotArray
             return [];
         }
 
-        NativeGodotVariant* buffer = GetPtrw();
+        NativeGodotVariant* buffer = GetPtr();
 
         T[] destination = new T[size];
         for (int i = 0; i < size; i++)
