@@ -71,6 +71,28 @@ partial class BindingsData
         }
 
         /// <summary>
+        /// Add a <see cref="TypeInfo"/> to the collection of generated test types
+        /// with the path that the type will be written to.
+        /// </summary>
+        /// <param name="path">The path that the generated type will be written to.</param>
+        /// <param name="type">The type that will be generated.</param>
+        /// <param name="configure">Callback to configure the generation.</param>
+        public void AddGeneratedTestType(string path, TypeInfo type, Action<GeneratedTypeData>? configure = null)
+        {
+            ArgumentException.ThrowIfNullOrEmpty(path);
+            ArgumentNullException.ThrowIfNull(type);
+
+            if (_data._generatedTestTypesByPath.ContainsKey(path))
+            {
+                throw new ArgumentException($"A generated test type has already been added with path '{path}'.", nameof(path));
+            }
+
+            var generatedTypeData = new GeneratedTypeData(path, type);
+            configure?.Invoke(generatedTypeData);
+            _data._generatedTestTypesByPath[path] = generatedTypeData;
+        }
+
+        /// <summary>
         /// Check if <paramref name="type"/> is a generated type.
         /// </summary>
         /// <param name="type">The type to check for.</param>

@@ -84,7 +84,7 @@ internal sealed class GenerateCommand : RootCommand
 
         logger.LogInformation($"Generating C# bindings for '{api.Header.VersionFullName}'.");
 
-        BindingsGenerator.Generate(api, outputPath.FullName, logger: logger);
+        BindingsGenerator.Generate(api, outputPath.FullName, testOutputPath?.FullName, logger: logger);
 
         string timeElapsed = FormatTimeSpan(DateTime.Now - startTime);
         logger.LogInformation($"\nTime Elapsed {timeElapsed}");

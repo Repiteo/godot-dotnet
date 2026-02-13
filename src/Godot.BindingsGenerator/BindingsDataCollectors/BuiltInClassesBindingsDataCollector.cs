@@ -199,7 +199,9 @@ internal sealed class BuiltInClassesBindingsDataCollector : BindingsDataCollecto
                         ReturnParameter = ReturnInfo.FromType(KnownTypes.SystemBoolean),
                         Body = MethodBody.CreateUnsafe(writer =>
                         {
-                            writer.WriteLine("return GetPtrw() is not null;");
+                            writer.WriteLine($"ref byte start = ref global::System.Runtime.CompilerServices.Unsafe.As<{type.FullName}, byte>(ref global::System.Runtime.CompilerServices.Unsafe.AsRef(in this));");
+                            writer.WriteLine($"var span = global::System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan(ref start, sizeof({type.FullName}));");
+                            writer.WriteLine("return global::System.MemoryExtensions.ContainsAnyExcept(span, (byte)0);");
                         }),
                     },
                 };
@@ -771,24 +773,32 @@ internal sealed class BuiltInClassesBindingsDataCollector : BindingsDataCollecto
             };
             type.NestedTypes.Add(movableType);
 
-            const string ExplicitLayoutAttr = "[global::System.Runtime.InteropServices.StructLayout(global::System.Runtime.InteropServices.LayoutKind.Explicit)]";
-            type.Attributes.Add(ExplicitLayoutAttr);
-            movableType.Attributes.Add(ExplicitLayoutAttr);
-
             Debug.Assert(engineClass.Size >= 1, $"Built-in class '{engineClass.Name}' has an invalid size ({engineClass.Size}).");
-            for (int i = 0; i < engineClass.Size; i++)
+
+            string explicitLayoutAttr = $"[global::System.Runtime.InteropServices.StructLayout(global::System.Runtime.InteropServices.LayoutKind.Explicit, Size = {engineClass.Size})]";
+            type.Attributes.Add(explicitLayoutAttr);
+            movableType.Attributes.Add(explicitLayoutAttr);
+
+            // Add test to ensure the size of the struct matches the size in the engine.
             {
-                var dataField = new FieldInfo($"_data{i}", KnownTypes.SystemByte)
+                var testType = new TypeInfo($"{type.Name}Tests", $"{type.Namespace}.Tests")
                 {
-                    VisibilityAttributes = VisibilityAttributes.Private,
-                    IsInitOnly = true,
-                    Attributes =
-                    {
-                        $"[global::System.Runtime.InteropServices.FieldOffset({i})]"
-                    },
+                    VisibilityAttributes = VisibilityAttributes.Public,
+                    TypeAttributes = TypeAttributes.ReferenceType,
                 };
-                type.DeclaredFields.Add(dataField);
-                movableType.DeclaredFields.Add(dataField);
+                context.AddGeneratedTestType($"BuiltInClasses/{type.Name}Tests.cs", testType);
+
+                var sizeTestMethod = new MethodInfo("SizeMatchesEngine")
+                {
+                    Attributes = { "[global::Xunit.Fact]" },
+                    VisibilityAttributes = VisibilityAttributes.Public,
+                    IsStatic = true,
+                    Body = MethodBody.CreateUnsafe(writer =>
+                    {
+                        writer.WriteLine($"Assert.Equal({engineClass.Size}, sizeof({type.FullName}));");
+                    }),
+                };
+                testType.DeclaredMethods.Add(sizeTestMethod);
             }
 
             {
@@ -799,7 +809,7 @@ internal sealed class BuiltInClassesBindingsDataCollector : BindingsDataCollecto
                     ReturnParameter = ReturnInfo.FromType(type.MakePointerType()),
                     Body = MethodBody.CreateUnsafe(writer =>
                     {
-                        writer.WriteLine($"return ({type.MakePointerType().FullNameWithGlobal})global::System.Runtime.CompilerServices.Unsafe.AsPointer(ref global::System.Runtime.CompilerServices.Unsafe.AsRef(in _data0));");
+                        writer.WriteLine($"return ({type.MakePointerType().FullNameWithGlobal})global::System.Runtime.CompilerServices.Unsafe.AsPointer(ref global::System.Runtime.CompilerServices.Unsafe.AsRef(in this));");
                     }),
                 };
                 type.DeclaredMethods.Add(method);

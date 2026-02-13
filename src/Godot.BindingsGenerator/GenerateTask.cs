@@ -65,7 +65,7 @@ public class GenerateTask : Task
 
         Log.LogMessage(MessageImportance.High, $"Generating C# bindings for '{api.Header.VersionFullName}'.");
 
-        BindingsGenerator.Generate(api, OutputPath, logger: logger);
+        BindingsGenerator.Generate(api, OutputPath, TestOutputPath, logger: logger);
 
         return !Log.HasLoggedErrors;
     }

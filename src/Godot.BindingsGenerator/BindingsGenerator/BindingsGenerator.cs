@@ -11,7 +11,7 @@ namespace Godot.BindingsGenerator;
 
 internal static partial class BindingsGenerator
 {
-    public static void Generate(GodotApi api, string outputDirectoryPath, BindingsGeneratorOptions? options = null, ILogger? logger = null)
+    public static void Generate(GodotApi api, string outputDirectoryPath, string? testOutputDirectoryPath = null, BindingsGeneratorOptions? options = null, ILogger? logger = null)
     {
         options ??= new();
         logger ??= ConsoleLogger.Instance;
@@ -26,25 +26,38 @@ internal static partial class BindingsGenerator
         }
 
         var data = BindingsData.Create(api, options, logger);
-        GenerateCore(api, outputDirectoryPath, options, data, logger);
+        GenerateCore(api, outputDirectoryPath, testOutputDirectoryPath, options, data, logger);
     }
 
-    private static void GenerateCore(GodotApi api, string outputDirectoryPath, BindingsGeneratorOptions options, BindingsData data, ILogger logger)
+    private static void GenerateCore(GodotApi api, string outputDirectoryPath, string? testOutputDirectoryPath, BindingsGeneratorOptions options, BindingsData data, ILogger logger)
     {
         foreach (var generationData in data.Types)
+        {
+            ProcessType(outputDirectoryPath, generationData, logger);
+        }
+
+        if (!string.IsNullOrEmpty(testOutputDirectoryPath))
+        {
+            foreach (var generationData in data.TestTypes)
+            {
+                ProcessType(testOutputDirectoryPath, generationData, logger);
+            }
+        }
+
+        static void ProcessType(string outputDirectoryPath, GeneratedTypeData generationData, ILogger logger)
         {
             var (type, path) = generationData;
 
             if (type.Name.Contains(':') || type.Name.Contains('/'))
             {
                 logger.LogError($"Ignoring type '{type.Name}' with invalid name.");
-                continue;
+                return;
             }
 
             if (type.ContainingType is not null)
             {
                 // Skip nested types, they will be generated as part of the generation of its containing type.
-                continue;
+                return;
             }
 
             string filePath = Path.Join(outputDirectoryPath, path);
