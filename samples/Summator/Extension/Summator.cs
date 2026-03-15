@@ -27,7 +27,7 @@ public partial class Summator : RefCounted
         context.BindConstructor(() => new Summator());
 
         context.BindMethod(new StringName(nameof(Add)),
-            new ParameterInfo(new StringName("value"), VariantType.Int, VariantTypeMetadata.Int32, 1),
+            new ParameterDefinition(new StringName("value"), VariantType.Int, VariantTypeMetadata.Int32, 1),
             static (Summator instance, int value) =>
             {
                 instance.Add(value);
@@ -40,7 +40,7 @@ public partial class Summator : RefCounted
             });
 
         context.BindMethod(new StringName(nameof(GetTotal)),
-            new ReturnInfo(VariantType.Int, VariantTypeMetadata.Int32),
+            new ReturnDefinition(VariantType.Int, VariantTypeMetadata.Int32),
             static (Summator instance) =>
             {
                 return instance.GetTotal();

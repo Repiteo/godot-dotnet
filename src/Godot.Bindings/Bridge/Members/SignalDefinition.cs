@@ -5,7 +5,7 @@ namespace Godot.Bridge;
 /// <summary>
 /// Defines a signal registered for a class.
 /// </summary>
-public sealed class SignalInfo
+public sealed class SignalDefinition
 {
     /// <summary>
     /// Name of the signal.
@@ -15,13 +15,13 @@ public sealed class SignalInfo
     /// <summary>
     /// Collection of parameter information for the signal delegate.
     /// </summary>
-    public List<ParameterInfo> Parameters { get; } = [];
+    public List<ParameterDefinition> Parameters { get; } = [];
 
     /// <summary>
-    /// Constructs a new <see cref="SignalInfo"/> with the specified name.
+    /// Constructs a new <see cref="SignalDefinition"/> with the specified name.
     /// </summary>
     /// <param name="name"></param>
-    public SignalInfo(StringName name)
+    public SignalDefinition(StringName name)
     {
         Name = name;
     }

@@ -12,19 +12,19 @@ partial class ClassRegistrationContext
     /// Register a property in the class.
     /// </summary>
     /// <remarks>
-    /// The <paramref name="propertyInfo"/> must include the names of the methods
+    /// The <paramref name="propertyDefinition"/> must include the names of the methods
     /// to be used as getter and setter. These methods must have previously been
-    /// registered using <see cref="BindMethod(MethodInfo)"/>.
+    /// registered using <see cref="BindMethod(MethodDefinition)"/>.
     /// </remarks>
-    /// <param name="propertyInfo">Information that describes the property to register.</param>
+    /// <param name="propertyDefinition">Information that describes the property to register.</param>
     /// <exception cref="ArgumentException">
     /// A property has already been registered with the same name.
     /// </exception>
-    public unsafe void BindProperty(PropertyInfoWithAccessors propertyInfo)
+    public unsafe void BindProperty(PropertyDefinitionWithAccessors propertyDefinition)
     {
-        if (!_registeredProperties.Add(propertyInfo.Name))
+        if (!_registeredProperties.Add(propertyDefinition.Name))
         {
-            throw new ArgumentException(SR.FormatArgument_PropertyAlreadyRegistered(propertyInfo.Name, ClassName), nameof(propertyInfo));
+            throw new ArgumentException(SR.FormatArgument_PropertyAlreadyRegistered(propertyDefinition.Name, ClassName), nameof(propertyDefinition));
         }
 
         _registerBindingActions.Enqueue(() =>
@@ -32,24 +32,24 @@ partial class ClassRegistrationContext
             // Convert managed property info to the internal unmanaged type.
             GDExtensionPropertyInfo propertyInfoNative;
             {
-                NativeGodotStringName propertyNameNative = propertyInfo.Name.NativeValue.DangerousSelfRef;
-                NativeGodotStringName propertyClassNameNative = (propertyInfo.ClassName?.NativeValue ?? default).DangerousSelfRef;
-                NativeGodotString hintStringNative = NativeGodotString.Create(propertyInfo.HintString);
+                NativeGodotStringName propertyNameNative = propertyDefinition.Name.NativeValue.DangerousSelfRef;
+                NativeGodotStringName propertyClassNameNative = (propertyDefinition.ClassName?.NativeValue ?? default).DangerousSelfRef;
+                NativeGodotString hintStringNative = NativeGodotString.Create(propertyDefinition.HintString);
 
-                propertyInfoNative = new GDExtensionPropertyInfo
+                propertyInfoNative = new GDExtensionPropertyInfo()
                 {
-                    type = (GDExtensionVariantType)propertyInfo.Type,
+                    type = (GDExtensionVariantType)propertyDefinition.Type,
                     name = &propertyNameNative,
 
-                    hint = (uint)propertyInfo.Hint,
+                    hint = (uint)propertyDefinition.Hint,
                     hint_string = &hintStringNative,
                     class_name = &propertyClassNameNative,
-                    usage = (uint)propertyInfo.Usage,
+                    usage = (uint)propertyDefinition.Usage,
                 };
             }
 
-            NativeGodotStringName setterNameNative = propertyInfo.SetterName.NativeValue.DangerousSelfRef;
-            NativeGodotStringName getterNameNative = propertyInfo.GetterName.NativeValue.DangerousSelfRef;
+            NativeGodotStringName setterNameNative = propertyDefinition.SetterName.NativeValue.DangerousSelfRef;
+            NativeGodotStringName getterNameNative = propertyDefinition.GetterName.NativeValue.DangerousSelfRef;
 
             NativeGodotStringName classNameNative = ClassName.NativeValue.DangerousSelfRef;
 
@@ -62,43 +62,43 @@ partial class ClassRegistrationContext
     /// </summary>
     /// <typeparam name="TInstance">Type of the class that contains the property.</typeparam>
     /// <typeparam name="TValue">Type of the property.</typeparam>
-    /// <param name="propertyInfo">Information that describes the property to register.</param>
+    /// <param name="propertyDefinition">Information that describes the property to register.</param>
     /// <param name="getter">Method or lambda that gets the property's value.</param>
     /// <param name="setter">Method or lambda that sets the property's value.</param>
     public void BindProperty<TInstance, [MustBeVariant] TValue>(
-        PropertyInfo propertyInfo,
+        PropertyDefinition propertyDefinition,
         Func<TInstance, TValue> getter,
         Action<TInstance, TValue> setter
     ) where TInstance : GodotObject
     {
-        StringName getterName = new($"get_{propertyInfo.Name}");
-        StringName setterName = new($"set_{propertyInfo.Name}");
+        StringName getterName = new($"get_{propertyDefinition.Name}");
+        StringName setterName = new($"set_{propertyDefinition.Name}");
 
-        var returnInfo = new ReturnInfo(propertyInfo.Type)
+        var returnDefinition = new ReturnDefinition(propertyDefinition.Type)
         {
-            Hint = propertyInfo.Hint,
-            HintString = propertyInfo.HintString,
-            ClassName = propertyInfo.ClassName,
-            Usage = propertyInfo.Usage,
+            Hint = propertyDefinition.Hint,
+            HintString = propertyDefinition.HintString,
+            ClassName = propertyDefinition.ClassName,
+            Usage = propertyDefinition.Usage,
         };
 
-        var valueParameterInfo = new ParameterInfo(new StringName("value"), propertyInfo.Type)
+        var valueParameterDefinition = new ParameterDefinition(new StringName("value"), propertyDefinition.Type)
         {
-            Hint = propertyInfo.Hint,
-            HintString = propertyInfo.HintString,
-            ClassName = propertyInfo.ClassName,
-            Usage = propertyInfo.Usage,
+            Hint = propertyDefinition.Hint,
+            HintString = propertyDefinition.HintString,
+            ClassName = propertyDefinition.ClassName,
+            Usage = propertyDefinition.Usage,
         };
 
-        BindMethod(getterName, returnInfo, getter);
-        BindMethod(setterName, valueParameterInfo, setter);
+        BindMethod(getterName, returnDefinition, getter);
+        BindMethod(setterName, valueParameterDefinition, setter);
 
-        BindProperty(new PropertyInfoWithAccessors(propertyInfo.Name, propertyInfo.Type, getterName, setterName)
+        BindProperty(new PropertyDefinitionWithAccessors(propertyDefinition.Name, propertyDefinition.Type, getterName, setterName)
         {
-            Hint = propertyInfo.Hint,
-            HintString = propertyInfo.HintString,
-            ClassName = propertyInfo.ClassName,
-            Usage = propertyInfo.Usage,
+            Hint = propertyDefinition.Hint,
+            HintString = propertyDefinition.HintString,
+            ClassName = propertyDefinition.ClassName,
+            Usage = propertyDefinition.Usage,
         });
     }
 

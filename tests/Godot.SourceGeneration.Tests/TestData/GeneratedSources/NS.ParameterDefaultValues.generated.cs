@@ -26,15 +26,15 @@ partial class ParameterDefaultValues
     {
         context.BindConstructor(() => new global::NS.ParameterDefaultValues());
         context.BindMethod(MethodName.@Method1,
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterByte"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Byte, 42)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterByte"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Byte, 42)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterBoolean"u8), global::Godot.VariantType.Bool, global::Godot.Bridge.VariantTypeMetadata.None, true)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterBoolean"u8), global::Godot.VariantType.Bool, global::Godot.Bridge.VariantTypeMetadata.None, true)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterSByte"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.SByte, 42)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterSByte"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.SByte, 42)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -43,27 +43,27 @@ partial class ParameterDefaultValues
                 __instance.@Method1(@parameterByte, @parameterBoolean, @parameterSByte);
             });
         context.BindMethod(MethodName.@Method2,
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterInt16"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int16, -42)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterInt16"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int16, -42)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterInt32"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int32, -42)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterInt32"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int32, -42)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterInt64"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int64, -42L)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterInt64"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int64, -42L)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterUInt16"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.UInt16, 42)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterUInt16"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.UInt16, 42)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterUInt32"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.UInt32, 42U)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterUInt32"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.UInt32, 42U)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterUInt64"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.UInt64, 42UL)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterUInt64"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.UInt64, 42UL)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -72,11 +72,11 @@ partial class ParameterDefaultValues
                 __instance.@Method2(@parameterInt16, @parameterInt32, @parameterInt64, @parameterUInt16, @parameterUInt32, @parameterUInt64);
             });
         context.BindMethod(MethodName.@Method3,
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterSingle"u8), global::Godot.VariantType.Float, global::Godot.Bridge.VariantTypeMetadata.Single, 4.2f)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterSingle"u8), global::Godot.VariantType.Float, global::Godot.Bridge.VariantTypeMetadata.Single, 4.2f)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterDouble"u8), global::Godot.VariantType.Float, global::Godot.Bridge.VariantTypeMetadata.Double, 4.2)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterDouble"u8), global::Godot.VariantType.Float, global::Godot.Bridge.VariantTypeMetadata.Double, 4.2)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -85,35 +85,35 @@ partial class ParameterDefaultValues
                 __instance.@Method3(@parameterSingle, @parameterDouble);
             });
         context.BindMethod(MethodName.@Method4,
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterChar"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Char16, 'a')
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterChar"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Char16, 'a')
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterString"u8), global::Godot.VariantType.String, global::Godot.Bridge.VariantTypeMetadata.None, "hello")
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterString"u8), global::Godot.VariantType.String, global::Godot.Bridge.VariantTypeMetadata.None, "hello")
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterEnum"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.None, (long)(MyEnum.A))
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterEnum"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.None, (long)(MyEnum.A))
             {
                 Hint = global::Godot.PropertyHint.Enum,
                 HintString = "A,B,C",
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterFlagsEnum"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.None, (long)(MyFlagsEnum.A | MyFlagsEnum.B))
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterFlagsEnum"u8), global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.None, (long)(MyFlagsEnum.A | MyFlagsEnum.B))
             {
                 Hint = global::Godot.PropertyHint.Flags,
                 HintString = "A:0,B:1,C:2",
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterAabb"u8), global::Godot.VariantType.Aabb, global::Godot.Bridge.VariantTypeMetadata.None, default)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterAabb"u8), global::Godot.VariantType.Aabb, global::Godot.Bridge.VariantTypeMetadata.None, default)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterBasis"u8), global::Godot.VariantType.Basis, global::Godot.Bridge.VariantTypeMetadata.None, default)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterBasis"u8), global::Godot.VariantType.Basis, global::Godot.Bridge.VariantTypeMetadata.None, default)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("parameterNodePath"u8), global::Godot.VariantType.NodePath, global::Godot.Bridge.VariantTypeMetadata.None, default)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("parameterNodePath"u8), global::Godot.VariantType.NodePath, global::Godot.Bridge.VariantTypeMetadata.None, default)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },

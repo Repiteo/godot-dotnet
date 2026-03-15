@@ -3,7 +3,7 @@ namespace Godot.Bridge;
 /// <summary>
 /// Defines a constant registered for a class.
 /// </summary>
-public class ConstantInfo
+public class ConstantDefinition
 {
     /// <summary>
     /// Name of the constant.
@@ -28,11 +28,11 @@ public class ConstantInfo
     public bool IsFlagsEnum { get; init; }
 
     /// <summary>
-    /// Constructs a new <see cref="ConstantInfo"/> with the specified name and value.
+    /// Constructs a new <see cref="ConstantDefinition"/> with the specified name and value.
     /// </summary>
     /// <param name="name">Name of the constant.</param>
     /// <param name="value">Value of the constant.</param>
-    public ConstantInfo(StringName name, long value)
+    public ConstantDefinition(StringName name, long value)
     {
         Name = name;
         Value = value;

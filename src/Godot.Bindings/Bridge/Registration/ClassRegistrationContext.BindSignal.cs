@@ -16,44 +16,44 @@ partial class ClassRegistrationContext
     /// <see cref="GodotObject.EmitSignal(StringName, ReadOnlySpan{Variant})"/>
     /// using the name that the signal was registered with.
     /// </summary>
-    /// <param name="signalInfo">Information that describes the signal to register.</param>
+    /// <param name="signalDefinition">Information that describes the signal to register.</param>
     /// <exception cref="ArgumentException">
     /// A signal has already been registered with the same name.
     /// </exception>
-    public unsafe void BindSignal(SignalInfo signalInfo)
+    public unsafe void BindSignal(SignalDefinition signalDefinition)
     {
-        if (!_registeredSignals.Add(signalInfo.Name))
+        if (!_registeredSignals.Add(signalDefinition.Name))
         {
-            throw new ArgumentException(SR.FormatArgument_SignalAlreadyRegistered(signalInfo.Name, ClassName), nameof(signalInfo));
+            throw new ArgumentException(SR.FormatArgument_SignalAlreadyRegistered(signalDefinition.Name, ClassName), nameof(signalDefinition));
         }
 
         _registerBindingActions.Enqueue(() =>
         {
             // Convert managed signal info to the internal unmanaged type.
-            Span<GDExtensionPropertyInfo> parameters = signalInfo.Parameters.Count <= ParameterSpanThreshold
-                ? stackalloc GDExtensionPropertyInfo[ParameterSpanThreshold].Slice(0, signalInfo.Parameters.Count)
-                : new GDExtensionPropertyInfo[signalInfo.Parameters.Count];
+            Span<GDExtensionPropertyInfo> parameters = signalDefinition.Parameters.Count <= ParameterSpanThreshold
+                ? stackalloc GDExtensionPropertyInfo[ParameterSpanThreshold].Slice(0, signalDefinition.Parameters.Count)
+                : new GDExtensionPropertyInfo[signalDefinition.Parameters.Count];
             for (int i = 0; i < parameters.Length; i++)
             {
-                var parameterInfo = signalInfo.Parameters[i];
+                var parameterDefinition = signalDefinition.Parameters[i];
 
-                NativeGodotStringName parameterNameNative = parameterInfo.Name.NativeValue.DangerousSelfRef;
-                NativeGodotStringName parameterClassNameNative = (parameterInfo.ClassName?.NativeValue ?? default).DangerousSelfRef;
-                NativeGodotString hintStringNative = NativeGodotString.Create(parameterInfo.HintString);
+                NativeGodotStringName parameterNameNative = parameterDefinition.Name.NativeValue.DangerousSelfRef;
+                NativeGodotStringName parameterClassNameNative = (parameterDefinition.ClassName?.NativeValue ?? default).DangerousSelfRef;
+                NativeGodotString hintStringNative = NativeGodotString.Create(parameterDefinition.HintString);
 
                 parameters[i] = new GDExtensionPropertyInfo()
                 {
-                    type = (GDExtensionVariantType)parameterInfo.Type,
+                    type = (GDExtensionVariantType)parameterDefinition.Type,
                     name = &parameterNameNative,
 
-                    hint = (uint)parameterInfo.Hint,
+                    hint = (uint)parameterDefinition.Hint,
                     hint_string = &hintStringNative,
                     class_name = &parameterClassNameNative,
-                    usage = (uint)parameterInfo.Usage,
+                    usage = (uint)parameterDefinition.Usage,
                 };
             }
 
-            NativeGodotStringName signalNameNative = signalInfo.Name.NativeValue.DangerousSelfRef;
+            NativeGodotStringName signalNameNative = signalDefinition.Name.NativeValue.DangerousSelfRef;
 
             NativeGodotStringName classNameNative = ClassName.NativeValue.DangerousSelfRef;
 

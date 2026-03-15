@@ -309,7 +309,7 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
                     }
                     writer.CloseBlock();
 
-                    writer.WriteLine("static void TrampolineWithVariantArgs(global::Godot.Bridge.MethodInfo methodInfo, global::Godot.GodotObject instance, global::System.Delegate @delegate, global::Godot.NativeInterop.NativeGodotVariantPtrSpan args, out global::Godot.NativeInterop.NativeGodotVariant ret)");
+                    writer.WriteLine("static void TrampolineWithVariantArgs(global::Godot.Bridge.MethodDefinition methodInfo, global::Godot.GodotObject instance, global::System.Delegate @delegate, global::Godot.NativeInterop.NativeGodotVariantPtrSpan args, out global::Godot.NativeInterop.NativeGodotVariant ret)");
                     writer.OpenBlock();
                     if (genericTypeArgumentCount == 0)
                     {
@@ -400,7 +400,7 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
                     writer.WriteLine("global::Godot.NativeInterop.Marshalling.WriteUnmanaged<TResult>(outRet, in res);");
                     writer.CloseBlock();
 
-                    writer.WriteLine("static void TrampolineWithVariantArgs(global::Godot.Bridge.MethodInfo methodInfo, global::Godot.GodotObject instance, global::System.Delegate @delegate, global::Godot.NativeInterop.NativeGodotVariantPtrSpan args, out global::Godot.NativeInterop.NativeGodotVariant ret)");
+                    writer.WriteLine("static void TrampolineWithVariantArgs(global::Godot.Bridge.MethodDefinition methodInfo, global::Godot.GodotObject instance, global::System.Delegate @delegate, global::Godot.NativeInterop.NativeGodotVariantPtrSpan args, out global::Godot.NativeInterop.NativeGodotVariant ret)");
                     writer.OpenBlock();
                     if (genericTypeArgumentCount == 0)
                     {
@@ -489,7 +489,7 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
                     }
                     writer.CloseBlock();
 
-                    writer.WriteLine("static void TrampolineWithVariantArgs(global::Godot.Bridge.MethodInfo methodInfo, global::Godot.GodotObject instance, global::System.Delegate @delegate, global::Godot.NativeInterop.NativeGodotVariantPtrSpan args, out global::Godot.NativeInterop.NativeGodotVariant ret)");
+                    writer.WriteLine("static void TrampolineWithVariantArgs(global::Godot.Bridge.MethodDefinition methodInfo, global::Godot.GodotObject instance, global::System.Delegate @delegate, global::Godot.NativeInterop.NativeGodotVariantPtrSpan args, out global::Godot.NativeInterop.NativeGodotVariant ret)");
                     writer.OpenBlock();
                     if (genericTypeArgumentCount == 0)
                     {
@@ -573,7 +573,7 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
                     writer.WriteLine("global::Godot.NativeInterop.Marshalling.WriteUnmanaged<TResult>(outRet, in res);");
                     writer.CloseBlock();
 
-                    writer.WriteLine("static void TrampolineWithVariantArgs(global::Godot.Bridge.MethodInfo methodInfo, global::Godot.GodotObject instance, global::System.Delegate @delegate, global::Godot.NativeInterop.NativeGodotVariantPtrSpan args, out global::Godot.NativeInterop.NativeGodotVariant ret)");
+                    writer.WriteLine("static void TrampolineWithVariantArgs(global::Godot.Bridge.MethodDefinition methodInfo, global::Godot.GodotObject instance, global::System.Delegate @delegate, global::Godot.NativeInterop.NativeGodotVariantPtrSpan args, out global::Godot.NativeInterop.NativeGodotVariant ret)");
                     writer.OpenBlock();
                     if (genericTypeArgumentCount == 0)
                     {
@@ -771,7 +771,7 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
                         Attributes = { "[global::Godot.MustBeVariant]" },
                     };
                     method.TypeParameters.Add(typeParameter);
-                    method.Parameters.Add(new ParameterInfo($"parameter{i}", new TypeInfo("ParameterInfo", "Godot.Bridge")));
+                    method.Parameters.Add(new ParameterInfo($"parameter{i}", new TypeInfo("ParameterDefinition", "Godot.Bridge")));
                 }
 
                 var actionType = KnownTypes.SystemActionOf(method.TypeParameters);
@@ -783,11 +783,11 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
                 {
                     if (genericTypeArgumentCount == 0)
                     {
-                        writer.WriteLine("BindMethod(new global::Godot.Bridge.MethodInfo(name, global::Godot.Bridge.MethodBindInvoker.From(action)));");
+                        writer.WriteLine("BindMethod(new global::Godot.Bridge.MethodDefinition(name, global::Godot.Bridge.MethodBindInvoker.From(action)));");
                     }
                     else
                     {
-                        writer.WriteLine("BindMethod(new global::Godot.Bridge.MethodInfo(name, global::Godot.Bridge.MethodBindInvoker.From(action))");
+                        writer.WriteLine("BindMethod(new global::Godot.Bridge.MethodDefinition(name, global::Godot.Bridge.MethodBindInvoker.From(action))");
                         writer.WriteLine('{');
                         writer.Indent++;
                         if (genericTypeArgumentCount == 1)
@@ -827,14 +827,14 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
                         Attributes = { "[global::Godot.MustBeVariant]" },
                     };
                     method.TypeParameters.Add(typeParameter);
-                    method.Parameters.Add(new ParameterInfo($"parameter{i}", new TypeInfo("ParameterInfo", "Godot.Bridge")));
+                    method.Parameters.Add(new ParameterInfo($"parameter{i}", new TypeInfo("ParameterDefinition", "Godot.Bridge")));
                 }
                 var returnTypeParameter = new TypeParameterInfo("TResult")
                 {
                     Attributes = { "[global::Godot.MustBeVariant]" },
                 };
                 method.TypeParameters.Add(returnTypeParameter);
-                method.Parameters.Add(new ParameterInfo("returnInfo", new TypeInfo("ReturnInfo", "Godot.Bridge")));
+                method.Parameters.Add(new ParameterInfo("returnInfo", new TypeInfo("ReturnDefinition", "Godot.Bridge")));
 
                 var funcType = KnownTypes.SystemFuncOf(method.TypeParameters);
                 Debug.Assert(funcType.GenericTypeArgumentCount == genericTypeArgumentCount + 2);
@@ -843,7 +843,7 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
 
                 method.Body = MethodBody.CreateUnsafe(writer =>
                 {
-                    writer.WriteLine("BindMethod(new global::Godot.Bridge.MethodInfo(name, global::Godot.Bridge.MethodBindInvoker.From(func))");
+                    writer.WriteLine("BindMethod(new global::Godot.Bridge.MethodDefinition(name, global::Godot.Bridge.MethodBindInvoker.From(func))");
                     writer.WriteLine('{');
                     writer.Indent++;
                     writer.WriteLine("Return = returnInfo,");
@@ -889,7 +889,7 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
                             Attributes = { "[global::Godot.MustBeVariant]" },
                         };
                         method.TypeParameters.Add(typeParameter);
-                        method.Parameters.Add(new ParameterInfo($"parameter{i}", new TypeInfo("ParameterInfo", "Godot.Bridge")));
+                        method.Parameters.Add(new ParameterInfo($"parameter{i}", new TypeInfo("ParameterDefinition", "Godot.Bridge")));
                     }
                 }
 
@@ -900,7 +900,7 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
 
                 method.Body = MethodBody.CreateUnsafe(writer =>
                 {
-                    writer.WriteLine("BindMethod(new global::Godot.Bridge.MethodInfo(name, global::Godot.Bridge.MethodBindInvoker.FromStatic(action))");
+                    writer.WriteLine("BindMethod(new global::Godot.Bridge.MethodDefinition(name, global::Godot.Bridge.MethodBindInvoker.FromStatic(action))");
                     writer.WriteLine('{');
                     writer.Indent++;
                     writer.WriteLine("IsStatic = true,");
@@ -938,14 +938,14 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
                         Attributes = { "[global::Godot.MustBeVariant]" },
                     };
                     method.TypeParameters.Add(typeParameter);
-                    method.Parameters.Add(new ParameterInfo($"parameter{i}", new TypeInfo("ParameterInfo", "Godot.Bridge")));
+                    method.Parameters.Add(new ParameterInfo($"parameter{i}", new TypeInfo("ParameterDefinition", "Godot.Bridge")));
                 }
                 var returnTypeParameter = new TypeParameterInfo("TResult")
                 {
                     Attributes = { "[global::Godot.MustBeVariant]" },
                 };
                 method.TypeParameters.Add(returnTypeParameter);
-                method.Parameters.Add(new ParameterInfo("returnInfo", new TypeInfo("ReturnInfo", "Godot.Bridge")));
+                method.Parameters.Add(new ParameterInfo("returnInfo", new TypeInfo("ReturnDefinition", "Godot.Bridge")));
 
                 var funcType = KnownTypes.SystemFuncOf(method.TypeParameters);
                 Debug.Assert(funcType.GenericTypeArgumentCount == genericTypeArgumentCount + 1);
@@ -954,7 +954,7 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
 
                 method.Body = MethodBody.CreateUnsafe(writer =>
                 {
-                    writer.WriteLine("BindMethod(new global::Godot.Bridge.MethodInfo(name, global::Godot.Bridge.MethodBindInvoker.FromStatic(func))");
+                    writer.WriteLine("BindMethod(new global::Godot.Bridge.MethodDefinition(name, global::Godot.Bridge.MethodBindInvoker.FromStatic(func))");
                     writer.WriteLine('{');
                     writer.Indent++;
                     writer.WriteLine("IsStatic = true,");
@@ -999,19 +999,19 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
                         Attributes = { "[global::Godot.MustBeVariant]" },
                     };
                     method.TypeParameters.Add(typeParameter);
-                    method.Parameters.Add(new ParameterInfo($"parameter{i}", new TypeInfo("ParameterInfo", "Godot.Bridge")));
+                    method.Parameters.Add(new ParameterInfo($"parameter{i}", new TypeInfo("ParameterDefinition", "Godot.Bridge")));
                 }
 
                 method.Body = MethodBody.Create(writer =>
                 {
                     if (genericTypeArgumentCount == 0)
                     {
-                        writer.WriteLine("BindVirtualMethod(new global::Godot.Bridge.VirtualMethodInfo(name));");
+                        writer.WriteLine("BindVirtualMethod(new global::Godot.Bridge.VirtualMethodDefinition(name));");
                         return;
                     }
                     else
                     {
-                        writer.WriteLine("BindVirtualMethod(new global::Godot.Bridge.VirtualMethodInfo(name)");
+                        writer.WriteLine("BindVirtualMethod(new global::Godot.Bridge.VirtualMethodDefinition(name)");
                         writer.WriteLine('{');
                         writer.Indent++;
                         if (genericTypeArgumentCount == 1)
@@ -1046,18 +1046,18 @@ internal sealed class VariadicGenericsBindingsDataCollector : BindingsDataCollec
                         Attributes = { "[global::Godot.MustBeVariant]" },
                     };
                     method.TypeParameters.Add(typeParameter);
-                    method.Parameters.Add(new ParameterInfo($"parameter{i}", new TypeInfo("ParameterInfo", "Godot.Bridge")));
+                    method.Parameters.Add(new ParameterInfo($"parameter{i}", new TypeInfo("ParameterDefinition", "Godot.Bridge")));
                 }
                 var returnTypeParameter = new TypeParameterInfo("TResult")
                 {
                     Attributes = { "[global::Godot.MustBeVariant]" },
                 };
                 method.TypeParameters.Add(returnTypeParameter);
-                method.Parameters.Add(new ParameterInfo("returnInfo", new TypeInfo("ReturnInfo", "Godot.Bridge")));
+                method.Parameters.Add(new ParameterInfo("returnInfo", new TypeInfo("ReturnDefinition", "Godot.Bridge")));
 
                 method.Body = MethodBody.Create(writer =>
                 {
-                    writer.WriteLine("BindVirtualMethod(new global::Godot.Bridge.VirtualMethodInfo(name)");
+                    writer.WriteLine("BindVirtualMethod(new global::Godot.Bridge.VirtualMethodDefinition(name)");
                     writer.WriteLine('{');
                     writer.Indent++;
                     writer.WriteLine("Return = returnInfo,");

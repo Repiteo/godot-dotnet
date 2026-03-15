@@ -9,7 +9,7 @@ namespace Godot.Bridge;
 /// <see cref="GodotObject.CallVirtualMethod(StringName)"/> or
 /// <see cref="GodotObject.TryCallVirtualMethod(StringName)"/>.
 /// </summary>
-public partial class VirtualMethodInfo
+public partial class VirtualMethodDefinition
 {
     /// <summary>
     /// Name of the method.
@@ -19,19 +19,19 @@ public partial class VirtualMethodInfo
     /// <summary>
     /// Collection of parameter information for the method.
     /// </summary>
-    public List<ParameterInfo> Parameters { get; } = [];
+    public List<ParameterDefinition> Parameters { get; } = [];
 
     /// <summary>
     /// Return information for the method or <see langword="null"/> if the
     /// method has no return parameter.
     /// </summary>
-    public ReturnInfo? Return { get; init; }
+    public ReturnDefinition? Return { get; init; }
 
     /// <summary>
-    /// Constructs a new <see cref="VirtualMethodInfo"/> with the specified name.
+    /// Constructs a new <see cref="VirtualMethodDefinition"/> with the specified name.
     /// </summary>
     /// <param name="name">Name of the method.</param>
-    public VirtualMethodInfo(StringName name)
+    public VirtualMethodDefinition(StringName name)
     {
         Name = name;
     }

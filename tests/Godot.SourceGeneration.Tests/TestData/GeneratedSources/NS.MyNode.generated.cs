@@ -29,7 +29,7 @@ partial class MyNode
             {
                 __instance.@MyMethod();
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@MyProperty, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int32)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@MyProperty, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int32)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -41,6 +41,6 @@ partial class MyNode
             {
                 __instance.@MyProperty = value;
             });
-        context.BindSignal(new global::Godot.Bridge.SignalInfo(SignalName.@MySignal));
+        context.BindSignal(new global::Godot.Bridge.SignalDefinition(SignalName.@MySignal));
     }
 }

@@ -103,7 +103,7 @@ partial class NodeWithDefaultMarshalling
 #pragma warning restore CS0108 // Method might already be defined higher in the hierarchy, that's not an issue.
     {
         context.BindConstructor(() => new global::NS.NodeWithDefaultMarshalling());
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyByte, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Byte)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyByte, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Byte)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -115,7 +115,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyByte = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyBoolean, global::Godot.VariantType.Bool)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyBoolean, global::Godot.VariantType.Bool)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -127,7 +127,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyBoolean = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertySByte, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.SByte)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertySByte, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.SByte)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -139,7 +139,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertySByte = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyChar, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Char16)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyChar, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Char16)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -151,7 +151,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyChar = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyRune, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Char32)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyRune, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Char32)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -163,7 +163,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyRune = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyInt16, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int16)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyInt16, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int16)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -175,7 +175,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyInt16 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyInt32, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int32)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyInt32, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int32)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -187,7 +187,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyInt32 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyInt64, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int64)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyInt64, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int64)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -199,7 +199,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyInt64 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyUInt16, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.UInt16)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyUInt16, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.UInt16)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -211,7 +211,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyUInt16 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyUInt32, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.UInt32)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyUInt32, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.UInt32)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -223,7 +223,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyUInt32 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyUInt64, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.UInt64)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyUInt64, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.UInt64)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -235,7 +235,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyUInt64 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertySingle, global::Godot.VariantType.Float, global::Godot.Bridge.VariantTypeMetadata.Single)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertySingle, global::Godot.VariantType.Float, global::Godot.Bridge.VariantTypeMetadata.Single)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -247,7 +247,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertySingle = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyDouble, global::Godot.VariantType.Float, global::Godot.Bridge.VariantTypeMetadata.Double)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyDouble, global::Godot.VariantType.Float, global::Godot.Bridge.VariantTypeMetadata.Double)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -259,7 +259,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyDouble = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyString, global::Godot.VariantType.String)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyString, global::Godot.VariantType.String)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -271,7 +271,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyString = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyEnum, global::Godot.VariantType.Int)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyEnum, global::Godot.VariantType.Int)
             {
                 Hint = global::Godot.PropertyHint.Enum,
                 HintString = "A,B,C",
@@ -285,7 +285,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyEnum = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyFlagsEnum, global::Godot.VariantType.Int)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyFlagsEnum, global::Godot.VariantType.Int)
             {
                 Hint = global::Godot.PropertyHint.Flags,
                 HintString = "A:0,B:1,C:2",
@@ -299,7 +299,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyFlagsEnum = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyAabb, global::Godot.VariantType.Aabb)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyAabb, global::Godot.VariantType.Aabb)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -311,7 +311,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyAabb = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyBasis, global::Godot.VariantType.Basis)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyBasis, global::Godot.VariantType.Basis)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -323,7 +323,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyBasis = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyCallable, global::Godot.VariantType.Callable)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyCallable, global::Godot.VariantType.Callable)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -335,7 +335,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyCallable = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyColor, global::Godot.VariantType.Color)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyColor, global::Godot.VariantType.Color)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -347,7 +347,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyColor = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyNodePath, global::Godot.VariantType.NodePath)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyNodePath, global::Godot.VariantType.NodePath)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -359,7 +359,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyNodePath = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyPlane, global::Godot.VariantType.Plane)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyPlane, global::Godot.VariantType.Plane)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -371,7 +371,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyPlane = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyProjection, global::Godot.VariantType.Projection)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyProjection, global::Godot.VariantType.Projection)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -383,7 +383,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyProjection = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyQuaternion, global::Godot.VariantType.Quaternion)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyQuaternion, global::Godot.VariantType.Quaternion)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -395,7 +395,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyQuaternion = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyRect2, global::Godot.VariantType.Rect2)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyRect2, global::Godot.VariantType.Rect2)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -407,7 +407,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyRect2 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyRect2I, global::Godot.VariantType.Rect2I)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyRect2I, global::Godot.VariantType.Rect2I)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -419,7 +419,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyRect2I = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyRid, global::Godot.VariantType.Rid)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyRid, global::Godot.VariantType.Rid)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -431,7 +431,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyRid = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertySignal, global::Godot.VariantType.Signal)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertySignal, global::Godot.VariantType.Signal)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -443,7 +443,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertySignal = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyStringName, global::Godot.VariantType.StringName)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyStringName, global::Godot.VariantType.StringName)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -455,7 +455,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyStringName = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyTransform2D, global::Godot.VariantType.Transform2D)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyTransform2D, global::Godot.VariantType.Transform2D)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -467,7 +467,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyTransform2D = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyTransform3D, global::Godot.VariantType.Transform3D)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyTransform3D, global::Godot.VariantType.Transform3D)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -479,7 +479,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyTransform3D = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyVector2, global::Godot.VariantType.Vector2)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyVector2, global::Godot.VariantType.Vector2)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -491,7 +491,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyVector2 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyVector2I, global::Godot.VariantType.Vector2I)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyVector2I, global::Godot.VariantType.Vector2I)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -503,7 +503,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyVector2I = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyVector3, global::Godot.VariantType.Vector3)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyVector3, global::Godot.VariantType.Vector3)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -515,7 +515,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyVector3 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyVector3I, global::Godot.VariantType.Vector3I)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyVector3I, global::Godot.VariantType.Vector3I)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -527,7 +527,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyVector3I = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyVector4, global::Godot.VariantType.Vector4)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyVector4, global::Godot.VariantType.Vector4)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -539,7 +539,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyVector4 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyVector4I, global::Godot.VariantType.Vector4I)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyVector4I, global::Godot.VariantType.Vector4I)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -551,7 +551,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyVector4I = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyVariant, global::Godot.VariantType.Nil)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyVariant, global::Godot.VariantType.Nil)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default | global::Godot.PropertyUsageFlags.NilIsVariant,
             },
@@ -563,7 +563,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyVariant = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotObject, global::Godot.VariantType.Object)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotObject, global::Godot.VariantType.Object)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
                 ClassName = global::Godot.StringName.CreateStaticFromAscii("Object"u8),
@@ -576,7 +576,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotObject = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyNodeDerived, global::Godot.VariantType.Object)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyNodeDerived, global::Godot.VariantType.Object)
             {
                 Hint = global::Godot.PropertyHint.NodeType,
                 HintString = "Sprite2D",
@@ -591,7 +591,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyNodeDerived = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyResourceDerived, global::Godot.VariantType.Object)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyResourceDerived, global::Godot.VariantType.Object)
             {
                 Hint = global::Godot.PropertyHint.ResourceType,
                 HintString = "Texture2D",
@@ -606,7 +606,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyResourceDerived = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyPackedByteArray, global::Godot.VariantType.PackedByteArray)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyPackedByteArray, global::Godot.VariantType.PackedByteArray)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:",
@@ -620,7 +620,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyPackedByteArray = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyPackedInt32Array, global::Godot.VariantType.PackedInt32Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyPackedInt32Array, global::Godot.VariantType.PackedInt32Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:",
@@ -634,7 +634,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyPackedInt32Array = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyPackedInt64Array, global::Godot.VariantType.PackedInt64Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyPackedInt64Array, global::Godot.VariantType.PackedInt64Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:",
@@ -648,7 +648,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyPackedInt64Array = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyPackedFloat32Array, global::Godot.VariantType.PackedFloat32Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyPackedFloat32Array, global::Godot.VariantType.PackedFloat32Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "3/0:",
@@ -662,7 +662,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyPackedFloat32Array = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyPackedFloat64Array, global::Godot.VariantType.PackedFloat64Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyPackedFloat64Array, global::Godot.VariantType.PackedFloat64Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "3/0:",
@@ -676,7 +676,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyPackedFloat64Array = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyPackedStringArray, global::Godot.VariantType.PackedStringArray)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyPackedStringArray, global::Godot.VariantType.PackedStringArray)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "4/0:",
@@ -690,7 +690,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyPackedStringArray = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyPackedVector2Array, global::Godot.VariantType.PackedVector2Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyPackedVector2Array, global::Godot.VariantType.PackedVector2Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "5/0:",
@@ -704,7 +704,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyPackedVector2Array = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyPackedVector3Array, global::Godot.VariantType.PackedVector3Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyPackedVector3Array, global::Godot.VariantType.PackedVector3Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "9/0:",
@@ -718,7 +718,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyPackedVector3Array = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyPackedColorArray, global::Godot.VariantType.PackedColorArray)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyPackedColorArray, global::Godot.VariantType.PackedColorArray)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "20/0:",
@@ -732,7 +732,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyPackedColorArray = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyPackedVector4Array, global::Godot.VariantType.PackedVector4Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyPackedVector4Array, global::Godot.VariantType.PackedVector4Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "12/0:",
@@ -746,7 +746,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyPackedVector4Array = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotArray, global::Godot.VariantType.Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotArray, global::Godot.VariantType.Array)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -758,7 +758,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotArray = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionary, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionary, global::Godot.VariantType.Dictionary)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -770,7 +770,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionary = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotArrayOfByte, global::Godot.VariantType.Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotArrayOfByte, global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:",
@@ -784,7 +784,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotArrayOfByte = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotArrayOfInt32, global::Godot.VariantType.Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotArrayOfInt32, global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:",
@@ -798,7 +798,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotArrayOfInt32 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotArrayOfInt64, global::Godot.VariantType.Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotArrayOfInt64, global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:",
@@ -812,7 +812,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotArrayOfInt64 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotArrayOfSingle, global::Godot.VariantType.Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotArrayOfSingle, global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "3/0:",
@@ -826,7 +826,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotArrayOfSingle = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotArrayOfDouble, global::Godot.VariantType.Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotArrayOfDouble, global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "3/0:",
@@ -840,7 +840,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotArrayOfDouble = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotArrayOfString, global::Godot.VariantType.Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotArrayOfString, global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "4/0:",
@@ -854,7 +854,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotArrayOfString = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotArrayOfEnum, global::Godot.VariantType.Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotArrayOfEnum, global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/2:A,B,C",
@@ -868,7 +868,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotArrayOfEnum = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotArrayOfFlagsEnum, global::Godot.VariantType.Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotArrayOfFlagsEnum, global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/6:A:0,B:1,C:2",
@@ -882,7 +882,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotArrayOfFlagsEnum = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotArrayOfVariant, global::Godot.VariantType.Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotArrayOfVariant, global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "0/0:",
@@ -896,7 +896,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotArrayOfVariant = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotArrayOfGodotObject, global::Godot.VariantType.Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotArrayOfGodotObject, global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "24/0:",
@@ -910,7 +910,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotArrayOfGodotObject = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfInt32Int32, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfInt32Int32, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:;2/0:",
@@ -924,7 +924,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfInt32Int32 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfInt32Byte, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfInt32Byte, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:;2/0:",
@@ -938,7 +938,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfInt32Byte = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfInt32Int64, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfInt32Int64, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:;2/0:",
@@ -952,7 +952,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfInt32Int64 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfInt32Single, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfInt32Single, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:;3/0:",
@@ -966,7 +966,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfInt32Single = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfInt32Double, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfInt32Double, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:;3/0:",
@@ -980,7 +980,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfInt32Double = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfInt32String, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfInt32String, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:;4/0:",
@@ -994,7 +994,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfInt32String = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfInt32Enum, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfInt32Enum, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:;2/2:A,B,C",
@@ -1008,7 +1008,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfInt32Enum = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfInt32FlagsEnum, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfInt32FlagsEnum, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:;2/6:A:0,B:1,C:2",
@@ -1022,7 +1022,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfInt32FlagsEnum = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfInt32Variant, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfInt32Variant, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:;0/0:",
@@ -1036,7 +1036,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfInt32Variant = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfInt32GodotObject, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfInt32GodotObject, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:;24/0:",
@@ -1050,7 +1050,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfInt32GodotObject = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfByteInt32, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfByteInt32, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:;2/0:",
@@ -1064,7 +1064,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfByteInt32 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfInt64Int32, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfInt64Int32, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:;2/0:",
@@ -1078,7 +1078,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfInt64Int32 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfSingleInt32, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfSingleInt32, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "3/0:;2/0:",
@@ -1092,7 +1092,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfSingleInt32 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfDoubleInt32, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfDoubleInt32, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "3/0:;2/0:",
@@ -1106,7 +1106,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfDoubleInt32 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfStringInt32, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfStringInt32, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "4/0:;2/0:",
@@ -1120,7 +1120,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfStringInt32 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfEnumInt32, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfEnumInt32, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/2:A,B,C;2/0:",
@@ -1134,7 +1134,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfEnumInt32 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfFlagsEnumInt32, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfFlagsEnumInt32, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/6:A:0,B:1,C:2;2/0:",
@@ -1148,7 +1148,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfFlagsEnumInt32 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfVariantInt32, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfVariantInt32, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "0/0:;2/0:",
@@ -1162,7 +1162,7 @@ partial class NodeWithDefaultMarshalling
             {
                 __instance.@PropertyGodotDictionaryOfVariantInt32 = value;
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@PropertyGodotDictionaryOfGodotObjectInt32, global::Godot.VariantType.Dictionary)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@PropertyGodotDictionaryOfGodotObjectInt32, global::Godot.VariantType.Dictionary)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "24/0:;2/0:",

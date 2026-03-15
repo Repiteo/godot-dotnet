@@ -34,7 +34,7 @@ partial class NodeWithSpeciallyRecognizedMarshalling
     {
         context.BindConstructor(() => new global::NS.NodeWithSpeciallyRecognizedMarshalling());
         context.BindMethod(MethodName.@MethodThatTakesArrayOfInts,
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("array"u8), global::Godot.VariantType.PackedInt32Array)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("array"u8), global::Godot.VariantType.PackedInt32Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:",
@@ -45,7 +45,7 @@ partial class NodeWithSpeciallyRecognizedMarshalling
                 __instance.@MethodThatTakesArrayOfInts([.. @array]);
             });
         context.BindMethod(MethodName.@MethodThatReturnsArrayOfInts,
-            new global::Godot.Bridge.ReturnInfo(global::Godot.VariantType.PackedInt32Array)
+            new global::Godot.Bridge.ReturnDefinition(global::Godot.VariantType.PackedInt32Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:",
@@ -56,7 +56,7 @@ partial class NodeWithSpeciallyRecognizedMarshalling
                 return (global::Godot.Collections.PackedInt32Array)([.. __instance.@MethodThatReturnsArrayOfInts()]);
             });
         context.BindMethod(MethodName.@MethodThatTakesListOfInts,
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("list"u8), global::Godot.VariantType.PackedInt32Array)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("list"u8), global::Godot.VariantType.PackedInt32Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:",
@@ -67,7 +67,7 @@ partial class NodeWithSpeciallyRecognizedMarshalling
                 __instance.@MethodThatTakesListOfInts([.. @list]);
             });
         context.BindMethod(MethodName.@MethodThatReturnsListOfInts,
-            new global::Godot.Bridge.ReturnInfo(global::Godot.VariantType.PackedInt32Array)
+            new global::Godot.Bridge.ReturnDefinition(global::Godot.VariantType.PackedInt32Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:",
@@ -78,7 +78,7 @@ partial class NodeWithSpeciallyRecognizedMarshalling
                 return (global::Godot.Collections.PackedInt32Array)([.. __instance.@MethodThatReturnsListOfInts()]);
             });
         context.BindMethod(MethodName.@MethodThatTakesArrayOfBooleans,
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("array"u8), global::Godot.VariantType.Array)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("array"u8), global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "1/0:",
@@ -89,7 +89,7 @@ partial class NodeWithSpeciallyRecognizedMarshalling
                 __instance.@MethodThatTakesArrayOfBooleans([.. @array]);
             });
         context.BindMethod(MethodName.@MethodThatReturnsArrayOfBooleans,
-            new global::Godot.Bridge.ReturnInfo(global::Godot.VariantType.Array)
+            new global::Godot.Bridge.ReturnDefinition(global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "1/0:",
@@ -100,7 +100,7 @@ partial class NodeWithSpeciallyRecognizedMarshalling
                 return (global::Godot.Collections.GodotArray<bool>)([.. __instance.@MethodThatReturnsArrayOfBooleans()]);
             });
         context.BindMethod(MethodName.@MethodThatTakesListOfBooleans,
-            new global::Godot.Bridge.ParameterInfo(global::Godot.StringName.CreateStaticFromAscii("list"u8), global::Godot.VariantType.Array)
+            new global::Godot.Bridge.ParameterDefinition(global::Godot.StringName.CreateStaticFromAscii("list"u8), global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "1/0:",
@@ -111,7 +111,7 @@ partial class NodeWithSpeciallyRecognizedMarshalling
                 __instance.@MethodThatTakesListOfBooleans([.. @list]);
             });
         context.BindMethod(MethodName.@MethodThatReturnsListOfBooleans,
-            new global::Godot.Bridge.ReturnInfo(global::Godot.VariantType.Array)
+            new global::Godot.Bridge.ReturnDefinition(global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "1/0:",
@@ -121,7 +121,7 @@ partial class NodeWithSpeciallyRecognizedMarshalling
             {
                 return (global::Godot.Collections.GodotArray<bool>)([.. __instance.@MethodThatReturnsListOfBooleans()]);
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@ArrayOfInts, global::Godot.VariantType.PackedInt32Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@ArrayOfInts, global::Godot.VariantType.PackedInt32Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:",
@@ -135,7 +135,7 @@ partial class NodeWithSpeciallyRecognizedMarshalling
             {
                 __instance.@ArrayOfInts = [.. value];
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@ListOfInts, global::Godot.VariantType.PackedInt32Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@ListOfInts, global::Godot.VariantType.PackedInt32Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "2/0:",
@@ -149,7 +149,7 @@ partial class NodeWithSpeciallyRecognizedMarshalling
             {
                 __instance.@ListOfInts = [.. value];
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@ArrayOfBooleans, global::Godot.VariantType.Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@ArrayOfBooleans, global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "1/0:",
@@ -163,7 +163,7 @@ partial class NodeWithSpeciallyRecognizedMarshalling
             {
                 __instance.@ArrayOfBooleans = [.. value];
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@ListOfBooleans, global::Godot.VariantType.Array)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@ListOfBooleans, global::Godot.VariantType.Array)
             {
                 Hint = global::Godot.PropertyHint.TypeString,
                 HintString = "1/0:",

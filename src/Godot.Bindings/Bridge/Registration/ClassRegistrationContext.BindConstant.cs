@@ -11,32 +11,32 @@ partial class ClassRegistrationContext
     /// <summary>
     /// Register a constant in the class.
     /// </summary>
-    /// <param name="constantInfo">Information that describes the constant to register.</param>
+    /// <param name="constantDefinition">Information that describes the constant to register.</param>
     /// <exception cref="ArgumentException">
     /// A constant has already been registered with the same name.
     /// </exception>
-    public unsafe void BindConstant(ConstantInfo constantInfo)
+    public unsafe void BindConstant(ConstantDefinition constantDefinition)
     {
-        if (!_registeredConstants.Add(constantInfo.Name))
+        if (!_registeredConstants.Add(constantDefinition.Name))
         {
-            throw new ArgumentException(SR.FormatArgument_ConstantAlreadyRegistered(constantInfo.Name, ClassName), nameof(constantInfo));
+            throw new ArgumentException(SR.FormatArgument_ConstantAlreadyRegistered(constantDefinition.Name, ClassName), nameof(constantDefinition));
         }
 
-        StringName enumName = constantInfo.EnumName ?? StringName.Empty;
+        StringName enumName = constantDefinition.EnumName ?? StringName.Empty;
 
-        if (enumName.IsEmpty && constantInfo.IsFlagsEnum)
+        if (enumName.IsEmpty && constantDefinition.IsFlagsEnum)
         {
-            throw new ArgumentException(SR.FormatArgument_ConstantWithoutEnumCantBeFlag(constantInfo.Name), nameof(constantInfo));
+            throw new ArgumentException(SR.FormatArgument_ConstantWithoutEnumCantBeFlag(constantDefinition.Name), nameof(constantDefinition));
         }
 
         _registerBindingActions.Enqueue(() =>
         {
-            NativeGodotStringName constantNameNative = constantInfo.Name.NativeValue.DangerousSelfRef;
+            NativeGodotStringName constantNameNative = constantDefinition.Name.NativeValue.DangerousSelfRef;
             NativeGodotStringName enumNameNative = enumName.NativeValue.DangerousSelfRef;
 
             NativeGodotStringName classNameNative = ClassName.NativeValue.DangerousSelfRef;
 
-            GodotBridge.GDExtensionInterface.classdb_register_extension_class_integer_constant(GodotBridge.LibraryPtr, &classNameNative, &enumNameNative, &constantNameNative, constantInfo.Value, constantInfo.IsFlagsEnum);
+            GodotBridge.GDExtensionInterface.classdb_register_extension_class_integer_constant(GodotBridge.LibraryPtr, &classNameNative, &enumNameNative, &constantNameNative, constantDefinition.Value, constantDefinition.IsFlagsEnum);
         });
     }
 }

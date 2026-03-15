@@ -12,15 +12,15 @@ partial class ClassRegistrationContext
     /// or <see cref="GodotObject.TryCallVirtualMethod(StringName)"/> to call the script
     /// override.
     /// </summary>
-    /// <param name="methodInfo">Information that describes the method to register.</param>
+    /// <param name="methodDefinition">Information that describes the method to register.</param>
     /// <exception cref="ArgumentException">
     /// A method has already been registered with the same name.
     /// </exception>
-    public unsafe void BindVirtualMethod(VirtualMethodInfo methodInfo)
+    public unsafe void BindVirtualMethod(VirtualMethodDefinition methodDefinition)
     {
-        if (!_registeredMethods.Add(methodInfo.Name))
+        if (!_registeredMethods.Add(methodDefinition.Name))
         {
-            throw new ArgumentException(SR.FormatArgument_MethodAlreadyRegistered(methodInfo.Name, ClassName), nameof(methodInfo));
+            throw new ArgumentException(SR.FormatArgument_MethodAlreadyRegistered(methodDefinition.Name, ClassName), nameof(methodDefinition));
         }
 
         _registerBindingActions.Enqueue(() =>
@@ -28,7 +28,7 @@ partial class ClassRegistrationContext
             // Convert managed method info to the internal unmanaged type.
             var methodInfoNative = new GDExtensionClassVirtualMethodInfo();
             {
-                NativeGodotStringName nameNative = methodInfo.Name.NativeValue.DangerousSelfRef;
+                NativeGodotStringName nameNative = methodDefinition.Name.NativeValue.DangerousSelfRef;
                 methodInfoNative.name = &nameNative;
 
                 var methodFlags = GDExtensionClassMethodFlags.GDEXTENSION_METHOD_FLAGS_DEFAULT | GDExtensionClassMethodFlags.GDEXTENSION_METHOD_FLAG_VIRTUAL;
@@ -36,41 +36,41 @@ partial class ClassRegistrationContext
 
                 // Return
 
-                if (methodInfo.Return is not null)
+                if (methodDefinition.Return is not null)
                 {
                     // Convert managed property info to the internal unmanaged type.
                     GDExtensionPropertyInfo ret;
                     {
-                        NativeGodotStringName returnNameNative = methodInfo.Return.Name.NativeValue.DangerousSelfRef;
-                        NativeGodotStringName returnClassNameNative = (methodInfo.Return.ClassName?.NativeValue ?? default).DangerousSelfRef;
-                        NativeGodotString hintStringNative = NativeGodotString.Create(methodInfo.Return.HintString);
+                        NativeGodotStringName returnNameNative = methodDefinition.Return.Name.NativeValue.DangerousSelfRef;
+                        NativeGodotStringName returnClassNameNative = (methodDefinition.Return.ClassName?.NativeValue ?? default).DangerousSelfRef;
+                        NativeGodotString hintStringNative = NativeGodotString.Create(methodDefinition.Return.HintString);
 
-                        ret = new GDExtensionPropertyInfo
+                        ret = new GDExtensionPropertyInfo()
                         {
-                            type = (GDExtensionVariantType)methodInfo.Return.Type,
+                            type = (GDExtensionVariantType)methodDefinition.Return.Type,
                             name = &returnNameNative,
 
-                            hint = (uint)methodInfo.Return.Hint,
+                            hint = (uint)methodDefinition.Return.Hint,
                             hint_string = &hintStringNative,
                             class_name = &returnClassNameNative,
-                            usage = (uint)methodInfo.Return.Usage,
+                            usage = (uint)methodDefinition.Return.Usage,
                         };
                     }
 
                     methodInfoNative.return_value = ret;
-                    methodInfoNative.return_value_metadata = (GDExtensionClassMethodArgumentMetadata)methodInfo.Return.TypeMetadata;
+                    methodInfoNative.return_value_metadata = (GDExtensionClassMethodArgumentMetadata)methodDefinition.Return.TypeMetadata;
                 }
 
                 // Parameters
 
-                var args = stackalloc GDExtensionPropertyInfo[methodInfo.Parameters.Count];
-                var argsMetadata = stackalloc GDExtensionClassMethodArgumentMetadata[methodInfo.Parameters.Count];
-                var argsDefaultValues = stackalloc NativeGodotVariant*[methodInfo.Parameters.Count];
+                var args = stackalloc GDExtensionPropertyInfo[methodDefinition.Parameters.Count];
+                var argsMetadata = stackalloc GDExtensionClassMethodArgumentMetadata[methodDefinition.Parameters.Count];
+                var argsDefaultValues = stackalloc NativeGodotVariant*[methodDefinition.Parameters.Count];
 
                 uint optionalParameterCount = 0;
-                for (int i = 0; i < methodInfo.Parameters.Count; i++)
+                for (int i = 0; i < methodDefinition.Parameters.Count; i++)
                 {
-                    var parameter = methodInfo.Parameters[i];
+                    var parameter = methodDefinition.Parameters[i];
 
                     if (optionalParameterCount > 0 && parameter.DefaultValue is null)
                     {
@@ -89,7 +89,7 @@ partial class ClassRegistrationContext
                         NativeGodotStringName parameterClassNameNative = (parameter.ClassName?.NativeValue ?? default).DangerousSelfRef;
                         NativeGodotString hintStringNative = NativeGodotString.Create(parameter.HintString);
 
-                        args[i] = new GDExtensionPropertyInfo
+                        args[i] = new GDExtensionPropertyInfo()
                         {
                             type = (GDExtensionVariantType)parameter.Type,
                             name = &parameterNameNative,
@@ -103,7 +103,7 @@ partial class ClassRegistrationContext
                     argsMetadata[i] = (GDExtensionClassMethodArgumentMetadata)parameter.TypeMetadata;
                 }
 
-                methodInfoNative.argument_count = (uint)methodInfo.Parameters.Count;
+                methodInfoNative.argument_count = (uint)methodDefinition.Parameters.Count;
                 methodInfoNative.arguments = args;
                 methodInfoNative.arguments_metadata = argsMetadata;
             }

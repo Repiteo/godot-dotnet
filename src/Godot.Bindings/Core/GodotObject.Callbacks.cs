@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Godot.Bridge;
 
 namespace Godot;
 
@@ -56,7 +55,7 @@ partial class GodotObject
     ///
     /// protected override void _GetPropertyList(IList&lt;PropertyInfo&gt; properties)
     /// {
-    ///     properties.Add(new PropertyInfo(VariantType.Int, new StringName("FakeProperty")));
+    ///     properties.Add(new PropertyInfo(new StringName("FakeProperty"), VariantType.Int));
     /// }
     /// </code>
     /// </example>
@@ -98,7 +97,7 @@ partial class GodotObject
     ///
     /// protected override void _GetPropertyList(IList&lt;PropertyInfo&gt; properties)
     /// {
-    ///     properties.Add(new PropertyInfo(VariantType.Int, new StringName("FakeProperty")));
+    ///     properties.Add(new PropertyInfo(new StringName("FakeProperty"), VariantType.Int));
     /// }
     /// </code>
     /// </example>
@@ -148,7 +147,7 @@ partial class GodotObject
     ///     {
     ///         for (int i = 0; i &lt; _numberCount; i++)
     ///         {
-    ///             properties.Add(new PropertyInfo(VariantType.Int, new StringName($"number_{i}"))
+    ///             properties.Add(new PropertyInfo(new StringName($"number_{i}"), VariantType.Int)
     ///             {
     ///                 Hint = PropertyHint.Enum,
     ///                 HintString = "Zero,One,Two,Three,Four,Five",

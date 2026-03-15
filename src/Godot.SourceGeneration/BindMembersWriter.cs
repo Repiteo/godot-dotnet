@@ -254,7 +254,7 @@ internal static class BindMembersWriter
             for (int i = 0; i < method.Parameters.Count; i++)
             {
                 var parameter = method.Parameters[i];
-                sb.AppendParameterInfo(parameter);
+                sb.AppendParameterDefinition(parameter);
                 if (method.ReturnParameter is not null || i < method.Parameters.Count - 1)
                 {
                     sb.AppendLine(',');
@@ -262,7 +262,7 @@ internal static class BindMembersWriter
             }
             if (method.ReturnParameter is not null)
             {
-                sb.AppendReturnInfo(method.ReturnParameter.Value);
+                sb.AppendReturnDefinition(method.ReturnParameter.Value);
             }
 
             if (method.IsVirtual)
@@ -361,7 +361,7 @@ internal static class BindMembersWriter
             sb.Append("context.BindConstant(");
             sb.Indent++;
 
-            sb.AppendConstantInfo(constant);
+            sb.AppendConstantDefinition(constant);
 
             sb.AppendLine(");");
 
@@ -402,7 +402,7 @@ internal static class BindMembersWriter
             sb.Append("context.BindProperty(");
             sb.Indent++;
 
-            sb.AppendPropertyInfo(property);
+            sb.AppendPropertyDefinition(property);
             sb.AppendLine(',');
 
             // Generate getter.
@@ -449,7 +449,7 @@ internal static class BindMembersWriter
     {
         foreach (var signal in spec.Signals)
         {
-            sb.Append("context.BindSignal(new global::Godot.Bridge.SignalInfo(");
+            sb.Append("context.BindSignal(new global::Godot.Bridge.SignalDefinition(");
             sb.Append($"SignalName.@{RemoveSignalDelegateSuffix(signal.SymbolName)})");
             if (signal.Parameters.Count == 0)
             {
@@ -466,7 +466,7 @@ internal static class BindMembersWriter
                 sb.Indent++;
                 foreach (var parameter in signal.Parameters)
                 {
-                    sb.AppendParameterInfo(parameter);
+                    sb.AppendParameterDefinition(parameter);
                     sb.AppendLine(',');
                 }
                 sb.Indent--;
@@ -478,9 +478,9 @@ internal static class BindMembersWriter
         }
     }
 
-    private static void AppendReturnInfo(this IndentedStringBuilder sb, GodotPropertySpec returnParameter)
+    private static void AppendReturnDefinition(this IndentedStringBuilder sb, GodotPropertySpec returnParameter)
     {
-        sb.Append("new global::Godot.Bridge.ReturnInfo(");
+        sb.Append("new global::Godot.Bridge.ReturnDefinition(");
         sb.Append(returnParameter.MarshalInfo.VariantType.FullNameWithGlobal());
         if (returnParameter.MarshalInfo.VariantTypeMetadata != VariantTypeMetadata.None)
         {
@@ -488,16 +488,16 @@ internal static class BindMembersWriter
             sb.Append(returnParameter.MarshalInfo.VariantTypeMetadata.FullNameWithGlobal());
         }
         sb.Append(')');
-        AppendPropertyInfoObjectInitializer(sb, returnParameter);
+        AppendPropertyDefinitionObjectInitializer(sb, returnParameter);
     }
 
-    private static void AppendParameterInfo(this IndentedStringBuilder sb, GodotPropertySpec parameter)
+    private static void AppendParameterDefinition(this IndentedStringBuilder sb, GodotPropertySpec parameter)
     {
         string nameValue = !string.IsNullOrEmpty(parameter.NameOverride)
             ? parameter.NameOverride!
             : parameter.SymbolName;
 
-        sb.Append("new global::Godot.Bridge.ParameterInfo(");
+        sb.Append("new global::Godot.Bridge.ParameterDefinition(");
         if (nameValue.IsAscii())
         {
             sb.Append($"""global::Godot.StringName.CreateStaticFromAscii("{nameValue}"u8), """);
@@ -517,12 +517,12 @@ internal static class BindMembersWriter
             sb.Append($", {parameter.ExplicitDefaultValue}");
         }
         sb.Append(')');
-        AppendPropertyInfoObjectInitializer(sb, parameter);
+        AppendPropertyDefinitionObjectInitializer(sb, parameter);
     }
 
-    private static void AppendConstantInfo(this IndentedStringBuilder sb, GodotConstantSpec constant)
+    private static void AppendConstantDefinition(this IndentedStringBuilder sb, GodotConstantSpec constant)
     {
-        sb.Append($"new global::Godot.Bridge.ConstantInfo(");
+        sb.Append($"new global::Godot.Bridge.ConstantDefinition(");
         sb.Append($"ConstantName.@{constant.EnumSymbolName}{constant.SymbolName}, ");
         sb.Append("(long)(");
         if (!string.IsNullOrEmpty(constant.EnumSymbolName))
@@ -548,9 +548,9 @@ internal static class BindMembersWriter
         }
     }
 
-    private static void AppendPropertyInfo(this IndentedStringBuilder sb, GodotPropertySpec property)
+    private static void AppendPropertyDefinition(this IndentedStringBuilder sb, GodotPropertySpec property)
     {
-        sb.Append("new global::Godot.Bridge.PropertyInfo(");
+        sb.Append("new global::Godot.Bridge.PropertyDefinition(");
         sb.Append($"PropertyName.@{property.SymbolName}, ");
         sb.Append(property.MarshalInfo.VariantType.FullNameWithGlobal());
         if (property.MarshalInfo.VariantTypeMetadata != VariantTypeMetadata.None)
@@ -559,10 +559,10 @@ internal static class BindMembersWriter
             sb.Append(property.MarshalInfo.VariantTypeMetadata.FullNameWithGlobal());
         }
         sb.Append(')');
-        AppendPropertyInfoObjectInitializer(sb, property);
+        AppendPropertyDefinitionObjectInitializer(sb, property);
     }
 
-    private static void AppendPropertyInfoObjectInitializer(IndentedStringBuilder sb, GodotPropertySpec property)
+    private static void AppendPropertyDefinitionObjectInitializer(IndentedStringBuilder sb, GodotPropertySpec property)
     {
         var marshalInfo = property.MarshalInfo;
 

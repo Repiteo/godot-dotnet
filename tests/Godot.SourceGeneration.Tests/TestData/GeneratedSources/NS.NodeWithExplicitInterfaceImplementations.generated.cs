@@ -30,7 +30,7 @@ partial class NodeWithExplicitInterfaceImplementations
                 ((global::NS.IMyInterface)__instance).@MyMethod();
             });
         context.BindMethod(MethodName.@MyMethodWithReturn,
-            new global::Godot.Bridge.ReturnInfo(global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int32)
+            new global::Godot.Bridge.ReturnDefinition(global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int32)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },
@@ -38,7 +38,7 @@ partial class NodeWithExplicitInterfaceImplementations
             {
                 return ((global::NS.IMyInterface)__instance).@MyMethodWithReturn();
             });
-        context.BindProperty(new global::Godot.Bridge.PropertyInfo(PropertyName.@MyProperty, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int32)
+        context.BindProperty(new global::Godot.Bridge.PropertyDefinition(PropertyName.@MyProperty, global::Godot.VariantType.Int, global::Godot.Bridge.VariantTypeMetadata.Int32)
             {
                 Usage = global::Godot.PropertyUsageFlags.Default,
             },

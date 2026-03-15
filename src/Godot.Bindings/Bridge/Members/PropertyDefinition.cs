@@ -3,7 +3,7 @@ namespace Godot.Bridge;
 /// <summary>
 /// Defines a member registered for a class.
 /// </summary>
-public class PropertyInfo
+public class PropertyDefinition
 {
     /// <summary>
     /// The member's type.
@@ -43,12 +43,12 @@ public class PropertyInfo
     public PropertyUsageFlags Usage { get; init; }
 
     /// <summary>
-    /// Constructs a new <see cref="PropertyInfo"/> with the specified name, type, and type metadata.
+    /// Constructs a new <see cref="PropertyDefinition"/> with the specified name, type, and type metadata.
     /// </summary>
     /// <param name="name">Name of the property.</param>
     /// <param name="type">Type of the property.</param>
     /// <param name="metadata">Type metadata of the property.</param>
-    public PropertyInfo(StringName name, VariantType type, VariantTypeMetadata metadata = VariantTypeMetadata.None)
+    public PropertyDefinition(StringName name, VariantType type, VariantTypeMetadata metadata = VariantTypeMetadata.None)
     {
         Type = type;
         TypeMetadata = metadata;
