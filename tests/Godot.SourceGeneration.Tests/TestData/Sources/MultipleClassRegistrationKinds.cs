@@ -16,3 +16,9 @@ public partial class MyToolNode : Node
 {
     public static void BindMembers(ClassRegistrationContext context) { }
 }
+
+[GodotClass]
+public abstract partial class MyAbstractNode : Node
+{
+    public static void BindMembers(ClassRegistrationContext context) { }
+}

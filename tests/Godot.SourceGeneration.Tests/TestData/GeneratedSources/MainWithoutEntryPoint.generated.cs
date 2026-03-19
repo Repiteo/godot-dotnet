@@ -12,6 +12,7 @@ internal static class ClassDBExtensions
         }
         global::Godot.Bridge.GodotRegistry.RegisterRuntimeClass<global::NS.MyNode>(global::NS.MyNode.BindMembers);
         global::Godot.Bridge.GodotRegistry.RegisterClass<global::NS.MyToolNode>(global::NS.MyToolNode.BindMembers);
+        global::Godot.Bridge.GodotRegistry.RegisterAbstractClass<global::NS.MyAbstractNode>(global::NS.MyAbstractNode.BindMembers);
     }
     internal static void DeinitializeUserTypes(global::Godot.Bridge.InitializationLevel level)
     {
