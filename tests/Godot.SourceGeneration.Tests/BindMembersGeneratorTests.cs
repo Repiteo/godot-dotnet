@@ -52,6 +52,15 @@ public class BindMembersGeneratorTests
     }
 
     [Fact]
+    public async Task BindNullableProperties()
+    {
+        await Verifier.Verify(
+            ["NodeWithNullableProperties.cs"],
+            ["NS.NodeWithNullableProperties.generated.cs"]
+        );
+    }
+
+    [Fact]
     public async Task BindGroupedProperties()
     {
         await Verifier.Verify(

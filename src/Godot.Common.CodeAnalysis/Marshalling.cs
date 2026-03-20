@@ -7,6 +7,10 @@ using Microsoft.CodeAnalysis;
 
 namespace Godot.Common.CodeAnalysis;
 
+// IMPORTANT: When comparing type names for the purpose of determining marshalling information,
+// we always exclude nullable annotations. We consider `GodotObject` and `GodotObject?` to be the
+// same type.
+
 internal static class Marshalling
 {
     public static bool TryGetMarshallingInformation(Compilation compilation, ITypeSymbol typeSymbol, [MaybeNullWhen(false)] out MarshalInfo marshalInfo)
@@ -124,7 +128,9 @@ internal static class Marshalling
         {
             if (typeSymbol.ContainingAssembly.Name == "Godot.Bindings")
             {
-                string typeName = typeSymbol.FullQualifiedNameOmitGlobal();
+                string typeName = typeSymbol
+                    .WithNullableAnnotation(NullableAnnotation.None)
+                    .FullQualifiedNameOmitGlobal();
                 maybeVariantType = typeName switch
                 {
                     KnownTypeNames.GodotAabb => VariantType.Aabb,
@@ -169,7 +175,9 @@ internal static class Marshalling
                     return true;
                 }
 
-                typeName = typeSymbol.FullQualifiedNameOmitGlobalWithoutGenericTypeArguments();
+                typeName = typeSymbol
+                    .WithNullableAnnotation(NullableAnnotation.None)
+                    .FullQualifiedNameOmitGlobalWithoutGenericTypeArguments();
                 maybeVariantType = typeName switch
                 {
                     KnownTypeNames.GodotArray => VariantType.Array,
@@ -241,7 +249,9 @@ internal static class Marshalling
 
         if (typeKind is TypeKind.Class)
         {
-            string typeName = typeSymbol.FullQualifiedNameOmitGlobalWithoutGenericTypeArguments();
+            string typeName = typeSymbol
+                .WithNullableAnnotation(NullableAnnotation.None)
+                .FullQualifiedNameOmitGlobalWithoutGenericTypeArguments();
 
             switch (typeName)
             {
@@ -334,7 +344,9 @@ internal static class Marshalling
         // NOTE: ContainingAssembly can be null if the type is a C# array (e.g.: int[])
         if (arrayLikeTypeSymbol.ContainingAssembly?.Name == "Godot.Bindings")
         {
-            string arrayLikeTypeName = arrayLikeTypeSymbol.FullQualifiedNameOmitGlobal();
+            string arrayLikeTypeName = arrayLikeTypeSymbol
+                    .WithNullableAnnotation(NullableAnnotation.None)
+                    .FullQualifiedNameOmitGlobal();
             string? elementTypeName = arrayLikeTypeName switch
             {
                 KnownTypeNames.GodotPackedByteArray => KnownTypeNames.SystemByte,
@@ -366,7 +378,9 @@ internal static class Marshalling
                 }
             }
 
-            arrayLikeTypeName = arrayLikeTypeSymbol.FullQualifiedNameOmitGlobalWithoutGenericTypeArguments();
+            arrayLikeTypeName = arrayLikeTypeSymbol
+                    .WithNullableAnnotation(NullableAnnotation.None)
+                    .FullQualifiedNameOmitGlobalWithoutGenericTypeArguments();
             if (arrayLikeTypeName == KnownTypeNames.GodotArray)
             {
                 // If the type is generic, it must be `GodotArray<T>` so we can get the element type
@@ -396,7 +410,9 @@ internal static class Marshalling
 
         if (typeKind == TypeKind.Class)
         {
-            string typeName = arrayLikeTypeSymbol.FullQualifiedNameOmitGlobalWithoutGenericTypeArguments();
+            string typeName = arrayLikeTypeSymbol
+                .WithNullableAnnotation(NullableAnnotation.None)
+                .FullQualifiedNameOmitGlobalWithoutGenericTypeArguments();
             if (typeName == KnownTypeNames.SystemCollectionsGenericList)
             {
                 // We don't specially-recognize any non-generic array-like types.
@@ -433,7 +449,9 @@ internal static class Marshalling
 
         if (dictionaryLikeTypeSymbol.ContainingAssembly.Name == "Godot.Bindings")
         {
-            string dictionaryLikeTypeName = dictionaryLikeTypeSymbol.FullQualifiedNameOmitGlobalWithoutGenericTypeArguments();
+            string dictionaryLikeTypeName = dictionaryLikeTypeSymbol
+                    .WithNullableAnnotation(NullableAnnotation.None)
+                    .FullQualifiedNameOmitGlobalWithoutGenericTypeArguments();
             if (dictionaryLikeTypeName == KnownTypeNames.GodotDictionary)
             {
                 // If the type is generic, it must be `GodotDictionary<TKey, TValue>` so we can get
@@ -451,7 +469,9 @@ internal static class Marshalling
 
         if (typeKind == TypeKind.Class)
         {
-            string typeName = dictionaryLikeTypeSymbol.FullQualifiedNameOmitGlobalWithoutGenericTypeArguments();
+            string typeName = dictionaryLikeTypeSymbol
+                .WithNullableAnnotation(NullableAnnotation.None)
+                .FullQualifiedNameOmitGlobalWithoutGenericTypeArguments();
             if (typeName == KnownTypeNames.SystemCollectionsGenericDictionary)
             {
                 // We don't specially-recognize any non-generic dictionary-like types.

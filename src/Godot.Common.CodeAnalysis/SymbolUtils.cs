@@ -13,16 +13,19 @@ internal static class SymbolUtils
 {
     private static readonly SymbolDisplayFormat _fullyQualifiedOmitGlobalFormat =
         SymbolDisplayFormat.FullyQualifiedFormat
-            .WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted);
+            .WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted)
+            .AddMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier);
 
     private static readonly SymbolDisplayFormat _fullyQualifiedWithGlobalFormat =
         SymbolDisplayFormat.FullyQualifiedFormat
-            .WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Included);
+            .WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Included)
+            .AddMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier);
 
     private static readonly SymbolDisplayFormat _fullyQualifiedOmitGlobalWithoutGenericTypeArgumentsFormat =
         SymbolDisplayFormat.FullyQualifiedFormat
             .WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted)
-            .WithGenericsOptions(SymbolDisplayGenericsOptions.None);
+            .WithGenericsOptions(SymbolDisplayGenericsOptions.None)
+            .AddMiscellaneousOptions(SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier);
 
     /// <summary>
     /// Get the fully-qualified name, omitting the global namespace, for the given namespace.
@@ -141,7 +144,12 @@ internal static class SymbolUtils
             }
         }
 
-        return typeSymbol.FullQualifiedNameOmitGlobal() == fullyQualifiedTypeName;
+        // We consider `GodotObject` and `GodotObject?` to be the same type for the purpose of this comparison.
+        string fullyQualifiedTypeSymbolName = typeSymbol
+            .WithNullableAnnotation(NullableAnnotation.None)
+            .FullQualifiedNameOmitGlobal();
+
+        return fullyQualifiedTypeSymbolName == fullyQualifiedTypeName;
     }
 
     /// <summary>
