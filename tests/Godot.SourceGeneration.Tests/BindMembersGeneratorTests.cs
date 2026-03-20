@@ -133,6 +133,15 @@ public class BindMembersGeneratorTests
     }
 
     [Fact]
+    public async Task BindRpcMethods()
+    {
+        await Verifier.Verify(
+            ["NodeWithRpcMethods.cs"],
+            ["NS.NodeWithRpcMethods.generated.cs"]
+        );
+    }
+
+    [Fact]
     public async Task MultipleClassesInOneFile()
     {
         await Verifier.Verify(

@@ -68,6 +68,11 @@ internal readonly record struct GodotClassSpec : IEquatable<GodotClassSpec>
     public EquatableArray<GodotSignalSpec> Signals { get; init; }
 
     /// <summary>
+    /// Describes the RPC configurations for methods that should be configured.
+    /// </summary>
+    public EquatableArray<GodotRpcMethodSpec> RpcMethods { get; init; }
+
+    /// <summary>
     /// Indicates the path to an image that will be used as the icon of the registered
     /// GDExtension class.
     /// </summary>

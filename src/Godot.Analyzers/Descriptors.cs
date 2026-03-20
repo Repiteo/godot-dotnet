@@ -349,4 +349,18 @@ internal static class Descriptors
         helpLinkUri: FormatHelpLink("GODOT0802"));
 
     #endregion
+
+    #region 09XX: Rules about the [Rpc] attribute.
+
+    public static readonly DiagnosticDescriptor GODOT0901_RpcMethodMustBeABoundMethod = new(
+        id: "GODOT0901",
+        title: SR.GODOT0901_RpcMethodMustBeABoundMethod_Title,
+        messageFormat: SR.GODOT0901_RpcMethodMustBeABoundMethod_MessageFormat,
+        description: SR.GODOT0901_RpcMethodMustBeABoundMethod_Description,
+        category: Category.Usage,
+        defaultSeverity: DiagnosticSeverity.Error,
+        isEnabledByDefault: true,
+        helpLinkUri: FormatHelpLink("GODOT0901"));
+
+    #endregion
 }

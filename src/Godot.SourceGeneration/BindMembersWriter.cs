@@ -57,6 +57,8 @@ internal static class BindMembersWriter
 
         WriteBindSignals(sb, spec);
 
+        WriteSetRpcConfigs(sb, spec);
+
         sb.CloseBlock();
 
         sb.CloseBlock();
@@ -475,6 +477,22 @@ internal static class BindMembersWriter
                 sb.Indent--;
                 sb.AppendLine("});");
             }
+        }
+    }
+
+    private static void WriteSetRpcConfigs(IndentedStringBuilder sb, GodotClassSpec spec)
+    {
+        foreach (var rpcMethod in spec.RpcMethods)
+        {
+            sb.AppendLine($"context.SetRpcConfig(MethodName.@{rpcMethod.SymbolName}, new global::Godot.NativeInterop.RpcConfig()");
+            sb.AppendLine("{");
+            sb.Indent++;
+            sb.AppendLine($"Mode = {rpcMethod.ModeExpression},");
+            sb.AppendLine($"CallLocal = {(rpcMethod.CallLocal ? "true" : "false")},");
+            sb.AppendLine($"TransferMode = {rpcMethod.TransferModeExpression},");
+            sb.AppendLine($"TransferChannel = {rpcMethod.TransferChannel},");
+            sb.Indent--;
+            sb.AppendLine("});");
         }
     }
 

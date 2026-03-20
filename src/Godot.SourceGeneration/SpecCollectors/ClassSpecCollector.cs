@@ -36,6 +36,7 @@ internal static class ClassSpecCollector
         List<GodotPropertySpec> properties = [];
         List<GodotMethodSpec> methods = [];
         List<GodotSignalSpec> signals = [];
+        List<GodotRpcMethodSpec> rpcMethods = [];
         string? icon = null;
 
         // Initialize constructor spec if the class is instantiable.
@@ -135,6 +136,16 @@ internal static class ClassSpecCollector
             }
         }
 
+        // Collect RPC method specs.
+        foreach (var methodSymbol in members.OfType<IMethodSymbol>())
+        {
+            GodotRpcMethodSpec? rpcMethodSpec = RpcMethodSpecCollector.Collect(compilation, methodSymbol, cancellationToken);
+            if (rpcMethodSpec is not null)
+            {
+                rpcMethods.Add(rpcMethodSpec.Value);
+            }
+        }
+
         // Collect icon.
         foreach (var (key, constant) in attribute.NamedArguments)
         {
@@ -158,6 +169,7 @@ internal static class ClassSpecCollector
             Properties = [.. properties],
             Methods = [.. methods],
             Signals = [.. signals],
+            RpcMethods = [.. rpcMethods],
             IconPath = icon,
         };
     }

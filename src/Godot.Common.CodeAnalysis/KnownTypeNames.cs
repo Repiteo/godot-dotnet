@@ -81,6 +81,7 @@ internal static class KnownTypeNames
     public const string BindPropertyAttribute = "Godot.BindPropertyAttribute";
     public const string PropertyGroupAttribute = "Godot.PropertyGroupAttribute";
     public const string PropertySubgroupAttribute = "Godot.PropertySubgroupAttribute";
+    public const string RpcAttribute = "Godot.RpcAttribute";
     public const string SignalAttribute = "Godot.SignalAttribute";
     public const string MustBeVariantAttribute = "Godot.MustBeVariantAttribute";
     public const string DisableGodotEntryPointGenerationAttribute = "Godot.DisableGodotEntryPointGenerationAttribute";

@@ -22,6 +22,10 @@ public partial class MyNode : Node
     [BindMethod]
     public void MyMethod() { }
 
+    [BindMethod]
+    [Rpc]
+    public void MyRpcMethod() { }
+
     [Signal]
     public delegate void MySignalEventHandler();
 }
@@ -44,6 +48,9 @@ public partial class MyNonGodotObject
 
     [{|GODOT0001:BindMethod|}]
     public void MyMethod() { }
+
+    [{|GODOT0001:Rpc|}]
+    public void MyRpcMethod() { }
 
     [{|GODOT0001:Signal|}]
     public delegate void MySignalEventHandler();

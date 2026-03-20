@@ -510,6 +510,29 @@ internal static class SyntaxUtils
             attributeListSyntax = attributeListSyntax.WithLeadingTrivia(syntaxNode.GetLeadingTrivia());
             syntaxNode = syntaxNode.WithoutLeadingTrivia();
         }
+        else
+        {
+            // When existing attribute lists are present, copy the trivia from the existing lists
+            // to preserve it. We can take the leading trivia from the first list and the trailing
+            // trivia from the last list to cover all trivia around the attribute lists.
+            var firstAttributeList = syntaxNode.AttributeLists[0];
+            var lastAttributeList = syntaxNode.AttributeLists[syntaxNode.AttributeLists.Count - 1];
+
+            var indentation = firstAttributeList.GetLeadingTrivia()
+                .LastOrDefault(t => t.IsKind(SyntaxKind.WhitespaceTrivia));
+            var endOfLine = lastAttributeList.GetTrailingTrivia()
+                .FirstOrDefault(t => t.IsKind(SyntaxKind.EndOfLineTrivia));
+
+            if (!indentation.IsKind(SyntaxKind.None))
+            {
+                attributeListSyntax = attributeListSyntax.WithLeadingTrivia(indentation);
+            }
+
+            if (!endOfLine.IsKind(SyntaxKind.None))
+            {
+                attributeListSyntax = attributeListSyntax.WithTrailingTrivia(endOfLine);
+            }
+        }
 
         return syntaxNode.AddAttributeLists(attributeListSyntax);
     }

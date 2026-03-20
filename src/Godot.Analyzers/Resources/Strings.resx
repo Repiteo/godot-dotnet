@@ -364,4 +364,16 @@
   <data name="GODOT0802_GenericTypeParameterMustBeVariantAnnotated_Title" xml:space="preserve">
     <value>The generic type parameter must be annotated with the '[MustBeVariant]' attribute</value>
   </data>
+  <data name="GODOT0901_RpcMethodMustBeABoundMethod_Description" xml:space="preserve">
+    <value>Add the '[BindMethod]' attribute to the method or remove the '[Rpc]' attribute.</value>
+  </data>
+  <data name="GODOT0901_RpcMethodMustBeABoundMethod_MessageFormat" xml:space="preserve">
+    <value>Method '{0}' is annotated with '[Rpc]' but it is not a bound method</value>
+  </data>
+  <data name="GODOT0901_RpcMethodMustBeABoundMethod_Title" xml:space="preserve">
+    <value>RPC methods must be bound methods</value>
+  </data>
+  <data name="GODOT0901_AddBindMethodAttribute_CodeFix" xml:space="preserve">
+    <value>Add '[BindMethod]' attribute</value>
+  </data>
 </root>

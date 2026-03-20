@@ -84,6 +84,7 @@ internal sealed class AttributeOutsideGodotClassAnalyzer : DiagnosticAnalyzer
             KnownTypeNames.BindEnumAttribute or
             KnownTypeNames.BindPropertyAttribute or
             KnownTypeNames.BindMethodAttribute or
+            KnownTypeNames.RpcAttribute or
             KnownTypeNames.SignalAttribute or
             KnownTypeNames.PropertyGroupAttribute or
             KnownTypeNames.PropertySubgroupAttribute
