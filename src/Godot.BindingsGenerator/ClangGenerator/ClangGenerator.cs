@@ -57,6 +57,7 @@ internal static class ClangGenerator
             {
                 ["char"] = "byte",
                 ["char32_t"] = "uint",
+                ["uint64_t"] = "ulong",
                 ["GDExtensionVariantPtr"] = "Godot.NativeInterop.NativeGodotVariant*",
                 ["GDExtensionConstVariantPtr"] = "Godot.NativeInterop.NativeGodotVariant*",
                 ["GDExtensionUninitializedVariantPtr"] = "Godot.NativeInterop.NativeGodotVariant*",

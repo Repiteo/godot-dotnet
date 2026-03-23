@@ -265,6 +265,18 @@
   <data name="InvalidOperation_VariantCantBeEnumerated" xml:space="preserve">
     <value>Can't enumerate Variant '{variantValue}'.</value>
   </data>
+  <data name="IO_FileOpenFailed" xml:space="preserve">
+    <value>Failed to open file '{path}'. Error: {error}.</value>
+  </data>
+  <data name="IO_FileWriteError" xml:space="preserve">
+    <value>An error occurred while writing to the file.</value>
+  </data>
+  <data name="IO_SeekBeforeBegin" xml:space="preserve">
+    <value>An attempt was made to move the position before the beginning of the stream.</value>
+  </data>
+  <data name="IO_SetLengthFailed" xml:space="preserve">
+    <value>An error occurred while setting the length of the file. Error: {error}.</value>
+  </data>
   <data name="KeyNotFound_DictionaryKeyNotFound" xml:space="preserve">
     <value>The given key '{key}' was not present in the dictionary.</value>
   </data>
@@ -285,5 +297,11 @@
   </data>
   <data name="MissingGodotMethod_UtilityFunctionNotFound" xml:space="preserve">
     <value>Utility function was not found. Likely the engine method changed to an incompatible version.</value>
+  </data>
+  <data name="NotSupported_UnreadableStream" xml:space="preserve">
+    <value>Stream does not support reading.</value>
+  </data>
+  <data name="NotSupported_UnwritableStream" xml:space="preserve">
+    <value>Stream does not support writing.</value>
   </data>
 </root>
