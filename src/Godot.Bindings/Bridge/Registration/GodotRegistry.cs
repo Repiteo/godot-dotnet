@@ -452,7 +452,7 @@ public static partial class GodotRegistry
 
         // We already checked that the method is registered in 'GetVirtualMethodUserData_Native',
         // this method would not have been called otherwise.
-        Debug.Assert(lookup.ContainsKey(*name), $"Virtual method '{StringName.CreateTakingOwnership(*name)}' has not been registered in class '{context.ClassName}'.");
+        Debug.Assert(lookup.ContainsKey(*name), $"Virtual method '{name->ToString()}' has not been registered in class '{context.ClassName}'.");
 
         var virtualMethodInfo = lookup[*name];
         virtualMethodInfo.Invoker.CallVirtualWithPtrArgs(instance, args, outRet);

@@ -239,13 +239,6 @@ public sealed class StringName : IDisposable, IEquatable<StringName?>
     /// <returns>A string representation of this <see cref="StringName"/>.</returns>
     public override string ToString()
     {
-        if (IsEmpty)
-        {
-            return string.Empty;
-        }
-
-        ref NativeGodotStringName self = ref NativeValue.DangerousSelfRef;
-        using NativeGodotString str = NativeGodotString.Create(self);
-        return str.ToString();
+        return NativeValue.DangerousSelfRef.ToString();
     }
 }

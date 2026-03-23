@@ -20,4 +20,15 @@ partial struct NativeGodotNodePath
         // This is all that's needed to check if it's empty. It's what the `is_empty()` C++ method does.
         get => _ptr == 0;
     }
+
+    public override readonly string ToString()
+    {
+        if (IsEmpty)
+        {
+            return string.Empty;
+        }
+
+        using NativeGodotString str = NativeGodotString.Create(this);
+        return str.ToString();
+    }
 }

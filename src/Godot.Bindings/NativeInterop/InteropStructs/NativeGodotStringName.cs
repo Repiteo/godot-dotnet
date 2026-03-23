@@ -139,4 +139,15 @@ partial struct NativeGodotStringName
             }
         }
     }
+
+    public override readonly string ToString()
+    {
+        if (IsEmpty)
+        {
+            return string.Empty;
+        }
+
+        using NativeGodotString str = NativeGodotString.Create(this);
+        return str.ToString();
+    }
 }

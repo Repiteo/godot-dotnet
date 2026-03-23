@@ -99,7 +99,7 @@ internal static partial class MethodBind
 
             if (string.IsNullOrEmpty(methodstr))
             {
-                methodstr = StringName.CreateTakingOwnership(method).ToString();
+                methodstr = method.ToString();
             }
 
             return $"function '{methodstr}' in base '{basestr}'";

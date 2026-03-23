@@ -372,13 +372,6 @@ public sealed class NodePath : IDisposable, IEquatable<NodePath?>
     /// <returns>A string representation of this <see cref="NodePath"/>.</returns>
     public override string ToString()
     {
-        if (IsEmpty)
-        {
-            return string.Empty;
-        }
-
-        ref NativeGodotNodePath self = ref NativeValue.DangerousSelfRef;
-        using NativeGodotString str = NativeGodotString.Create(self);
-        return str.ToString();
+        return NativeValue.DangerousSelfRef.ToString();
     }
 }
