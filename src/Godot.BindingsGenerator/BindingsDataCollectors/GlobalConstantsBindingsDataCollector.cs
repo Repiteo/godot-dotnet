@@ -7,9 +7,9 @@ internal sealed class GlobalConstantsBindingsDataCollector : BindingsDataCollect
 {
     public override void Populate(BindingsData.CollectionContext context)
     {
-        var globals = new TypeInfo("GD", "Godot")
+        var globals = new TypeInfo("GlobalConstants", "Godot")
         {
-            VisibilityAttributes = VisibilityAttributes.Public,
+            VisibilityAttributes = VisibilityAttributes.Assembly,
             TypeAttributes = TypeAttributes.ReferenceType,
             IsStatic = true,
             IsPartial = true,
@@ -22,10 +22,12 @@ internal sealed class GlobalConstantsBindingsDataCollector : BindingsDataCollect
             var field = new FieldInfo(fieldName, fieldType)
             {
                 VisibilityAttributes = VisibilityAttributes.Public,
+                IsLiteral = true,
+                DefaultValue = engineConstant.Value,
             };
             globals.DeclaredFields.Add(field);
         }
 
-        context.AddGeneratedType($"GD.GlobalConstants.cs", globals);
+        context.AddGeneratedType($"GlobalConstants.cs", globals);
     }
 }

@@ -3,6 +3,8 @@ using System.Globalization;
 
 namespace Godot.BindingsGenerator.ApiDump.Serialization;
 
+// TODO: Exceptions here could show more information if JsonException exposed `AppendPathInformation`, see https://github.com/dotnet/runtime/issues/95205.
+
 /// <summary>
 /// Custom JSON converter to handle <see cref="GodotConstantInfo"/>.
 /// Godot global constants only contain a numeric value for <see cref="GodotConstantInfo.Value"/>
@@ -46,6 +48,15 @@ internal sealed class ConstantInfoConverter : JsonConverter<GodotConstantInfo>
                     constantName = reader.GetString();
                     break;
 
+                case "is_bitfield":
+                    reader.Read();
+                    bool isBitField = reader.GetBoolean();
+                    if (isBitField)
+                    {
+                        throw new JsonException("Bitfield constants are not supported.");
+                    }
+                    break;
+
                 case "type":
                     reader.Read();
                     typeName = reader.GetString();
@@ -56,7 +67,7 @@ internal sealed class ConstantInfoConverter : JsonConverter<GodotConstantInfo>
                     switch (reader.TokenType)
                     {
                         case JsonTokenType.Number:
-                            valueString = reader.GetInt32().ToString(CultureInfo.InvariantCulture);
+                            valueString = reader.GetInt64().ToString(CultureInfo.InvariantCulture);
                             valueIsInteger = true;
                             break;
                         case JsonTokenType.String:
