@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
 
@@ -8,6 +9,17 @@ internal sealed class NumberDefaultValueParser<T> : DefaultValueParser where T :
 {
     public static NumberDefaultValueParser<T> Instance { get; } = new();
 
+    private static readonly Dictionary<string, Func<string, string>> _floatingConstants = new()
+    {
+        ["pi"] = type => $"{type}.Pi",
+        ["-pi"] = type => $"-{type}.Pi",
+        ["tau"] = type => $"{type}.Tau",
+        ["-tau"] = type => $"-{type}.Tau",
+        ["inf"] = type => $"{type}.PositiveInfinity",
+        ["-inf"] = type => $"{type}.NegativeInfinity",
+        ["nan"] = type => $"{type}.NaN",
+    };
+
     private NumberDefaultValueParser() { }
 
     protected override string ParseCore(string engineDefaultValue)
@@ -16,6 +28,18 @@ internal sealed class NumberDefaultValueParser<T> : DefaultValueParser where T :
         // but that syntax is not supported by float.Parse so remove the trailing 'f' in that case.
         if (typeof(T) == typeof(float) || typeof(T) == typeof(double))
         {
+            if (_floatingConstants.TryGetValue(engineDefaultValue, out var constantFunc))
+            {
+                if (typeof(T) == typeof(float))
+                {
+                    return constantFunc("float");
+                }
+                if (typeof(T) == typeof(double))
+                {
+                    return constantFunc("double");
+                }
+            }
+
             if (engineDefaultValue.EndsWith('f'))
             {
                 engineDefaultValue = engineDefaultValue[..^1];
