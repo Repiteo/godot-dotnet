@@ -373,6 +373,18 @@
   <data name="GUA1011_SystemArrayToPackedArray_Title" xml:space="preserve">
     <value>Use Godot Packed Array types with Godot APIs</value>
   </data>
+  <data name="GUA1012_GodotArrayConcatenation_CodeFix" xml:space="preserve">
+    <value>Replace with collection expression</value>
+  </data>
+  <data name="GUA1012_GodotArrayConcatenation_Description" xml:space="preserve">
+    <value>The '+' operator on Godot Arrays has been removed. Use a collection expression with spread elements instead (e.g., '[..a, ..b]' instead of 'a + b').</value>
+  </data>
+  <data name="GUA1012_GodotArrayConcatenation_MessageFormat" xml:space="preserve">
+    <value>The '+' operator on Godot Array types has been removed, use a collection expression instead</value>
+  </data>
+  <data name="GUA1012_GodotArrayConcatenation_Title" xml:space="preserve">
+    <value>Use collection expressions instead of '+' operator on Godot Array types</value>
+  </data>
   <data name="InvalidOperation_ApiMapEntryIsReadOnly" xml:space="preserve">
     <value>API map entry is readonly and can't be modified.</value>
   </data>

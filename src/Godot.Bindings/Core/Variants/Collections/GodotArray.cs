@@ -199,45 +199,6 @@ public sealed class GodotArray :
     }
 
     /// <summary>
-    /// Concatenates two <see cref="GodotArray"/>s together, with the <paramref name="right"/>
-    /// being added to the end of the <see cref="GodotArray"/> specified in <paramref name="left"/>.
-    /// For example, <c>[1, 2] + [3, 4]</c> results in <c>[1, 2, 3, 4]</c>.
-    /// </summary>
-    /// <param name="left">The first array.</param>
-    /// <param name="right">The second array.</param>
-    /// <returns>A new Godot Array with the contents of both arrays.</returns>
-    public static GodotArray operator +(GodotArray left, GodotArray right)
-    {
-        if (left is null)
-        {
-            if (right is null)
-            {
-                return [];
-            }
-
-            return right.Duplicate(deep: false);
-        }
-
-        if (right is null)
-        {
-            return left.Duplicate(deep: false);
-        }
-
-        int leftCount = left.Count;
-        int rightCount = right.Count;
-
-        GodotArray newArray = left.Duplicate(deep: false);
-        newArray.Resize(leftCount + rightCount);
-
-        for (int i = 0; i < rightCount; i++)
-        {
-            newArray[i + leftCount] = right[i];
-        }
-
-        return newArray;
-    }
-
-    /// <summary>
     /// Returns the item at the given <paramref name="index"/>.
     /// </summary>
     /// <exception cref="InvalidOperationException">

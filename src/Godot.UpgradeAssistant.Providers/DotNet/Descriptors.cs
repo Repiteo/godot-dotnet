@@ -174,5 +174,14 @@ internal static class Descriptors
         defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true);
 
+    public static readonly DiagnosticDescriptor GUA1012_GodotArrayConcatenation = new(
+        id: "GUA1012",
+        title: SR.GUA1012_GodotArrayConcatenation_Title,
+        messageFormat: SR.GUA1012_GodotArrayConcatenation_MessageFormat,
+        description: SR.GUA1012_GodotArrayConcatenation_Description,
+        category: Category,
+        defaultSeverity: DiagnosticSeverity.Error,
+        isEnabledByDefault: true);
+
     #endregion
 }
