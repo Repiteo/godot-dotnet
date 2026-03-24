@@ -320,13 +320,13 @@ public static partial class GodotRegistry
 
             // Convert internal property info to the public managed type.
             VariantType type = (VariantType)refProperty->type;
-            StringName? name = StringNameMarshaller.ConvertFromUnmanaged(refProperty->name);
-            Debug.Assert(name is not null);
-            var propertyInfo = new PropertyInfo(name, type)
+            using StringName? name = StringNameMarshaller.ConvertFromUnmanaged(refProperty->name);
+            using StringName? className = StringNameMarshaller.ConvertFromUnmanaged(refProperty->class_name);
+            var propertyInfo = new PropertyInfo(name ?? StringName.Empty, type)
             {
                 Hint = (PropertyHint)refProperty->hint,
                 HintString = StringMarshaller.ConvertFromUnmanaged(refProperty->hint_string),
-                ClassName = StringNameMarshaller.ConvertFromUnmanaged(refProperty->class_name),
+                ClassName = className,
                 Usage = (PropertyUsageFlags)refProperty->usage,
             };
 
