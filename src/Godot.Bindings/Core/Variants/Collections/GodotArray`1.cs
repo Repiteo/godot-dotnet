@@ -59,7 +59,16 @@ public sealed class GodotArray<[MustBeVariant] T> :
         Marshalling.GenericConversion<GodotArray<T>>.FromPtrCb = &ConvertFromUnmanagedFunc;
         Marshalling.GenericConversion<GodotArray<T>>.ToVariantCb = &ConvertToVariantFunc;
         Marshalling.GenericConversion<GodotArray<T>>.FromVariantCb = &ConvertFromVariantFunc;
+
+        _elementVariantType = Marshalling.GetVariantType<T>();
+        if (_elementVariantType == GDExtensionVariantType.GDEXTENSION_VARIANT_TYPE_OBJECT)
+        {
+            _elementClassName = GodotObject.GetGodotNativeName(typeof(T));
+        }
     }
+
+    private static readonly GDExtensionVariantType _elementVariantType;
+    private static readonly StringName? _elementClassName;
 
     private readonly GodotArray _underlyingArray;
 
@@ -71,6 +80,23 @@ public sealed class GodotArray<[MustBeVariant] T> :
         get => ref _underlyingArray.NativeValue;
     }
 
+    private void SetTypedForUnderlyingArray()
+    {
+        if (_elementVariantType == GDExtensionVariantType.GDEXTENSION_VARIANT_TYPE_NIL)
+        {
+            // NIL means no element type constraint.
+            return;
+        }
+
+        NativeGodotStringName elementClassNameNative = default;
+        if (_elementClassName is not null)
+        {
+            elementClassNameNative = _elementClassName.NativeValue.DangerousSelfRef;
+        }
+
+        _underlyingArray.NativeValue.DangerousSelfRef.SetTyped(_elementVariantType, elementClassNameNative);
+    }
+
     /// <summary>
     /// Constructs a new empty <see cref="GodotArray{T}"/>.
     /// </summary>
@@ -78,6 +104,7 @@ public sealed class GodotArray<[MustBeVariant] T> :
     public GodotArray()
     {
         _underlyingArray = [];
+        SetTypedForUnderlyingArray();
     }
 
     /// <summary>
@@ -88,6 +115,9 @@ public sealed class GodotArray<[MustBeVariant] T> :
     private GodotArray(GodotArray underlyingArray)
     {
         _underlyingArray = underlyingArray;
+        // IMPORTANT: We explicitly do not call SetTypedForUnderlyingArray here
+        // because this constructor is used to take an existing underlying array
+        // (such as one coming from GDScript that will already have the type set).
     }
 
     /// <summary>
@@ -107,15 +137,20 @@ public sealed class GodotArray<[MustBeVariant] T> :
         if (collection is GodotArray array)
         {
             _underlyingArray = array.Duplicate(deep: false);
+            // IMPORTANT: Godot doesn't allow setting the type for non-empty arrays.
             return;
         }
         if (collection is GodotArray<T> typedArray)
         {
             _underlyingArray = typedArray._underlyingArray.Duplicate(deep: false);
+            // IMPORTANT: We explicitly do not call SetTypedForUnderlyingArray here because
+            // the collection matches the type of this array, so we assume the underlying
+            // array is already correctly typed.
             return;
         }
 
         _underlyingArray = [];
+        SetTypedForUnderlyingArray();
 
         AddRangeCore(collection);
     }
@@ -127,7 +162,21 @@ public sealed class GodotArray<[MustBeVariant] T> :
     /// <returns>A new Godot Array.</returns>
     public GodotArray(ReadOnlySpan<T> collection)
     {
-        _underlyingArray = GodotArray.CreateTakingOwnership(NativeGodotArray.Create(collection));
+        if (_elementVariantType == GDExtensionVariantType.GDEXTENSION_VARIANT_TYPE_NIL)
+        {
+            // If the array has no element type constraint, we can add the items
+            // with a single interop call.
+            _underlyingArray = GodotArray.CreateTakingOwnership(NativeGodotArray.Create(collection));
+            return;
+        }
+
+        NativeGodotStringName elementClassNameNative = default;
+        if (_elementClassName is not null)
+        {
+            elementClassNameNative = _elementClassName.NativeValue.DangerousSelfRef;
+        }
+
+        _underlyingArray = GodotArray.CreateTakingOwnership(NativeGodotArray.CreateTyped(collection, _elementVariantType, elementClassNameNative));
     }
 
     /// <summary>

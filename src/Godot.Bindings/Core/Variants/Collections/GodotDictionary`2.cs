@@ -58,7 +58,23 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
         Marshalling.GenericConversion<GodotDictionary<TKey, TValue>>.FromPtrCb = &ConvertFromUnmanagedFunc;
         Marshalling.GenericConversion<GodotDictionary<TKey, TValue>>.ToVariantCb = &ConvertToVariantFunc;
         Marshalling.GenericConversion<GodotDictionary<TKey, TValue>>.FromVariantCb = &ConvertFromVariantFunc;
+
+        _keyVariantType = Marshalling.GetVariantType<TKey>();
+        if (_keyVariantType == GDExtensionVariantType.GDEXTENSION_VARIANT_TYPE_OBJECT)
+        {
+            _keyClassName = GodotObject.GetGodotNativeName(typeof(TKey));
+        }
+        _valueVariantType = Marshalling.GetVariantType<TValue>();
+        if (_valueVariantType == GDExtensionVariantType.GDEXTENSION_VARIANT_TYPE_OBJECT)
+        {
+            _valueClassName = GodotObject.GetGodotNativeName(typeof(TValue));
+        }
     }
+
+    private static readonly GDExtensionVariantType _keyVariantType;
+    private static readonly GDExtensionVariantType _valueVariantType;
+    private static readonly StringName? _keyClassName;
+    private static readonly StringName? _valueClassName;
 
     private readonly GodotDictionary _underlyingDict;
 
@@ -70,6 +86,30 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
         get => ref _underlyingDict.NativeValue;
     }
 
+    private void SetTypedForUnderlyingDictionary()
+    {
+        if (_keyVariantType == GDExtensionVariantType.GDEXTENSION_VARIANT_TYPE_NIL
+         && _valueVariantType == GDExtensionVariantType.GDEXTENSION_VARIANT_TYPE_NIL)
+        {
+            // NIL means no type constraints.
+            return;
+        }
+
+        NativeGodotStringName keyClassNameNative = default;
+        if (_keyClassName is not null)
+        {
+            keyClassNameNative = _keyClassName.NativeValue.DangerousSelfRef;
+        }
+
+        NativeGodotStringName valueClassNameNative = default;
+        if (_valueClassName is not null)
+        {
+            valueClassNameNative = _valueClassName.NativeValue.DangerousSelfRef;
+        }
+
+        _underlyingDict.NativeValue.DangerousSelfRef.SetTyped(_keyVariantType, in keyClassNameNative, _valueVariantType, in valueClassNameNative);
+    }
+
     /// <summary>
     /// Constructs a new empty <see cref="GodotDictionary{TKey, TValue}"/>.
     /// </summary>
@@ -77,6 +117,7 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
     public GodotDictionary()
     {
         _underlyingDict = [];
+        SetTypedForUnderlyingDictionary();
     }
 
     /// <summary>
@@ -87,6 +128,9 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
     private GodotDictionary(GodotDictionary underlyingDictionary)
     {
         _underlyingDict = underlyingDictionary;
+        // IMPORTANT: We explicitly do not call SetTypedForUnderlyingDictionary here
+        // because this constructor is used to take an existing underlying dictionary
+        // (such as one coming from GDScript that will already have the type set).
     }
 
     /// <summary>
@@ -106,15 +150,20 @@ public sealed class GodotDictionary<[MustBeVariant] TKey, [MustBeVariant] TValue
         if (dictionary is GodotDictionary godotDictionary)
         {
             _underlyingDict = godotDictionary.Duplicate(deep: false);
+            // IMPORTANT: Godot doesn't allow setting the type for non-empty dictionaries.
             return;
         }
         else if (dictionary is GodotDictionary<TKey, TValue> typedGodotDictionary)
         {
             _underlyingDict = typedGodotDictionary._underlyingDict.Duplicate(deep: false);
+            // IMPORTANT: We explicitly do not call SetTypedForUnderlyingDictionary here because
+            // the collection matches the type of this dictionary, so we assume the underlying
+            // dictionary is already correctly typed.
             return;
         }
 
         _underlyingDict = [];
+        SetTypedForUnderlyingDictionary();
 
         foreach (var (key, value) in dictionary)
         {

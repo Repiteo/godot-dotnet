@@ -36,4 +36,11 @@ partial struct NativeGodotDictionary
     {
         return GodotBridge.GDExtensionInterface.dictionary_operator_index(GetUnsafeAddress(), key.GetUnsafeAddress());
     }
+
+    internal readonly unsafe void SetTyped(GDExtensionVariantType keyType, scoped in NativeGodotStringName keyClassName, GDExtensionVariantType valueType, scoped in NativeGodotStringName valueClassName)
+    {
+        NativeGodotVariant keyScript = default;
+        NativeGodotVariant valueScript = default;
+        GodotBridge.GDExtensionInterface.dictionary_set_typed(GetUnsafeAddress(), keyType, keyClassName.GetUnsafeAddress(), keyScript.GetUnsafeAddress(), valueType, valueClassName.GetUnsafeAddress(), valueScript.GetUnsafeAddress());
+    }
 }

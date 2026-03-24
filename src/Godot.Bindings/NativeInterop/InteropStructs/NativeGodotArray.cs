@@ -42,10 +42,33 @@ partial struct NativeGodotArray
         return GodotBridge.GDExtensionInterface.array_operator_index(GetUnsafeAddress(), 0);
     }
 
-    internal static unsafe NativeGodotArray Create<[MustBeVariant] T>(ReadOnlySpan<T> value)
+    internal readonly unsafe void SetTyped(GDExtensionVariantType elementType, NativeGodotStringName elementClassName)
+    {
+        NativeGodotVariant script = default;
+        GodotBridge.GDExtensionInterface.array_set_typed(GetUnsafeAddress(), elementType, elementClassName.GetUnsafeAddress(), script.GetUnsafeAddress());
+    }
+
+    internal static NativeGodotArray Create<[MustBeVariant] T>(ReadOnlySpan<T> value)
     {
         NativeGodotArray destination = Create();
 
+        CreateCore(ref destination, value);
+
+        return destination;
+    }
+
+    internal static NativeGodotArray CreateTyped<[MustBeVariant] T>(ReadOnlySpan<T> value, GDExtensionVariantType elementType, NativeGodotStringName elementClassName)
+    {
+        NativeGodotArray destination = Create();
+        destination.SetTyped(elementType, elementClassName);
+
+        CreateCore(ref destination, value);
+
+        return destination;
+    }
+
+    private static unsafe void CreateCore<[MustBeVariant] T>(ref NativeGodotArray destination, ReadOnlySpan<T> value)
+    {
         Resize(ref destination, value.Length);
 
         NativeGodotVariant* buffer = destination.GetPtrw();
@@ -54,8 +77,6 @@ partial struct NativeGodotArray
         {
             buffer[i] = Marshalling.ConvertToVariant(value[i]);
         }
-
-        return destination;
     }
 
     internal readonly unsafe T[] ToArray<[MustBeVariant] T>()
