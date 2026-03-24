@@ -16,9 +16,9 @@ internal sealed class FloatingPointVariantMarshallerWriter : VariantMarshallerWr
         return KnownTypes.SystemDouble;
     }
 
-    protected override void WriteConvertToVariantCore(IndentedTextWriter writer, TypeInfo type, string source, string destination)
+    protected override bool WriteSetupToVariantCore(IndentedTextWriter writer, TypeInfo type, string source, string destination)
     {
-        writer.Write($"{destination} = global::Godot.NativeInterop.NativeGodotVariant.CreateFromFloat(");
+        writer.Write($"global::Godot.NativeInterop.NativeGodotVariant {destination} = global::Godot.NativeInterop.NativeGodotVariant.CreateFromFloat(");
         if (type != KnownTypes.SystemDouble)
         {
             writer.Write($"(double)({source})");
@@ -27,7 +27,14 @@ internal sealed class FloatingPointVariantMarshallerWriter : VariantMarshallerWr
         {
             writer.Write(source);
         }
-        writer.WriteLine(").GetUnsafeAddress();");
+        writer.WriteLine(");");
+
+        return true;
+    }
+
+    protected override void WriteConvertToVariantCore(IndentedTextWriter writer, TypeInfo type, string source, string destination)
+    {
+        writer.WriteLine($"{destination} = {source}.GetUnsafeAddress();");
     }
 
     protected override void WriteConvertFromVariantCore(IndentedTextWriter writer, TypeInfo type, string source, string destination)

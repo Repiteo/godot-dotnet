@@ -37,14 +37,14 @@ internal sealed class InteropStructVariantMarshallerWriter : VariantMarshallerWr
         return _marshallableType;
     }
 
-    protected override void WriteConvertToVariantCore(IndentedTextWriter writer, TypeInfo type, string source, string destination)
+    protected override bool WriteSetupToVariantCore(IndentedTextWriter writer, TypeInfo type, string source, string destination)
     {
         if (!IsTypeCompatible(type))
         {
             throw new ArgumentException($"Type '{type.FullName}' can't be marshalled by this marshaller. Only '{_marshallableType.FullName}' is supported.", nameof(type));
         }
 
-        writer.Write($"{destination} = ");
+        writer.Write($"global::Godot.NativeInterop.NativeGodotVariant {destination} = ");
         if (type.IsReferenceType)
         {
             writer.Write($"{source} is not null ? ");
@@ -56,12 +56,24 @@ internal sealed class InteropStructVariantMarshallerWriter : VariantMarshallerWr
         {
             writer.Write($".NativeValue.DangerousSelfRef");
         }
-        writer.Write(").GetUnsafeAddress()");
+        writer.Write(")");
         if (type.IsReferenceType)
         {
             writer.Write(" : default");
         }
         writer.WriteLine(';');
+
+        return true;
+    }
+
+    protected override void WriteConvertToVariantCore(IndentedTextWriter writer, TypeInfo type, string source, string destination)
+    {
+        if (!IsTypeCompatible(type))
+        {
+            throw new ArgumentException($"Type '{type.FullName}' can't be marshalled by this marshaller. Only '{_marshallableType.FullName}' is supported.", nameof(type));
+        }
+
+        writer.WriteLine($"{destination} = {source}.GetUnsafeAddress();");
     }
 
     protected override void WriteConvertFromVariantCore(IndentedTextWriter writer, TypeInfo type, string source, string destination)
