@@ -41,7 +41,7 @@ internal sealed class CallMethodBindVararg : VarargCallMethodBody<VarargCallMeth
     protected override void InvokeMethodBind(VarargCallMethodBodyContext context, IndentedTextWriter writer)
     {
         string instanceVariable = !context.IsStatic ? context.InstanceVariableName : "null";
-        string returnVariable = "null";
+        string returnVariable;
         if (context.ReturnType is not null)
         {
             returnVariable = $"&{context.ReturnVariableName}";
@@ -49,6 +49,12 @@ internal sealed class CallMethodBindVararg : VarargCallMethodBody<VarargCallMeth
             {
                 returnVariable += "Var";
             }
+        }
+        else
+        {
+            // The method has no return type, but the call still needs to pass a valid pointer for the return value.
+            writer.WriteLine($"global::Godot.NativeInterop.NativeGodotVariant __dummyRet = default;");
+            returnVariable = "&__dummyRet";
         }
 
         writer.WriteLine($"global::Godot.NativeInterop.GDExtensionCallError __callError;");
