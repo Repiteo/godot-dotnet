@@ -213,7 +213,7 @@ public static partial class GodotRegistry
 
             bool ok = instanceObj._Get(nameManaged, out Variant valueManaged);
 
-            *outRet = valueManaged.NativeValue.DangerousSelfRef;
+            *outRet = NativeGodotVariant.Create(valueManaged.NativeValue.DangerousSelfRef);
             return ok;
         }
 
@@ -301,7 +301,7 @@ public static partial class GodotRegistry
 
             bool ok = instanceObj._PropertyGetRevert(nameManaged, out Variant valueManaged);
 
-            *outRet = valueManaged.NativeValue.DangerousSelfRef;
+            *outRet = NativeGodotVariant.Create(valueManaged.NativeValue.DangerousSelfRef);
             return ok;
         }
 

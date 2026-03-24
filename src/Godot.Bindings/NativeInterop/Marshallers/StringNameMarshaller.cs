@@ -10,7 +10,7 @@ internal static unsafe class StringNameMarshaller
     public static void WriteUnmanaged(NativeGodotStringName* destination, StringName? value)
     {
         value ??= StringName.Empty;
-        *destination = value.NativeValue.DangerousSelfRef;
+        *destination = NativeGodotStringName.Create(value.NativeValue.DangerousSelfRef);
     }
 
     public static NativeGodotStringName* ConvertToUnmanaged(StringName? value)
@@ -24,7 +24,7 @@ internal static unsafe class StringNameMarshaller
     {
         Debug.Assert(value is not null);
         return value->IsAllocated
-            ? StringName.CreateTakingOwnership(*value)
+            ? StringName.CreateCopying(*value)
             : null;
     }
 
@@ -38,7 +38,7 @@ internal static unsafe class StringNameMarshaller
     {
         value ??= StringName.Empty;
         NativeGodotVariant* ptr = (NativeGodotVariant*)NativeMemory.Alloc((nuint)sizeof(NativeGodotVariant));
-        *ptr = NativeGodotVariant.CreateFromStringNameTakingOwnership(value.NativeValue.DangerousSelfRef);
+        *ptr = NativeGodotVariant.CreateFromStringNameTakingOwnership(NativeGodotStringName.Create(value.NativeValue.DangerousSelfRef));
         return ptr;
     }
 

@@ -99,7 +99,7 @@ public abstract class CustomCallable
             return;
         }
 
-        *outRet = result.NativeValue.DangerousSelfRef;
+        *outRet = NativeGodotVariant.Create(result.NativeValue.DangerousSelfRef);
         outError->error = GDExtensionCallErrorType.GDEXTENSION_CALL_OK;
     }
 

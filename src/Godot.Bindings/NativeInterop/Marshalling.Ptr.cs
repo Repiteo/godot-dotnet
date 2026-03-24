@@ -125,7 +125,7 @@ partial class Marshalling
 
         if (typeof(T) == typeof(Callable))
         {
-            *(NativeGodotCallable*)destination = UnsafeAs<Callable>(value).NativeValue.DangerousSelfRef;
+            *(NativeGodotCallable*)destination = NativeGodotCallable.Create(UnsafeAs<Callable>(value).NativeValue.DangerousSelfRef);
             return;
         }
 
@@ -137,7 +137,10 @@ partial class Marshalling
 
         if (typeof(T) == typeof(NodePath))
         {
-            *(NativeGodotNodePath*)destination = (UnsafeAs<NodePath?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            NodePath? nodePath = UnsafeAs<NodePath?>(value);
+            *(NativeGodotNodePath*)destination = nodePath is not null
+                ? NativeGodotNodePath.Create(nodePath.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
@@ -179,13 +182,16 @@ partial class Marshalling
 
         if (typeof(T) == typeof(Signal))
         {
-            *(NativeGodotSignal*)destination = UnsafeAs<Signal>(value).NativeValue.DangerousSelfRef;
+            *(NativeGodotSignal*)destination = NativeGodotSignal.Create(UnsafeAs<Signal>(value).NativeValue.DangerousSelfRef);
             return;
         }
 
         if (typeof(T) == typeof(StringName))
         {
-            *(NativeGodotStringName*)destination = (UnsafeAs<StringName?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            StringName? stringName = UnsafeAs<StringName?>(value);
+            *(NativeGodotStringName*)destination = stringName is not null
+                ? NativeGodotStringName.Create(stringName.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
@@ -239,79 +245,115 @@ partial class Marshalling
 
         if (typeof(T) == typeof(Variant))
         {
-            *(NativeGodotVariant*)destination = UnsafeAs<Variant>(value).NativeValue.DangerousSelfRef;
+            *(NativeGodotVariant*)destination = NativeGodotVariant.Create(UnsafeAs<Variant>(value).NativeValue.DangerousSelfRef);
             return;
         }
 
         if (typeof(T) == typeof(PackedByteArray))
         {
-            *(NativeGodotPackedByteArray*)destination = (UnsafeAs<PackedByteArray?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            PackedByteArray? packedByteArray = UnsafeAs<PackedByteArray?>(value);
+            *(NativeGodotPackedByteArray*)destination = packedByteArray is not null
+                ? NativeGodotPackedByteArray.Create(packedByteArray.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
         if (typeof(T) == typeof(PackedInt32Array))
         {
-            *(NativeGodotPackedInt32Array*)destination = (UnsafeAs<PackedInt32Array?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            PackedInt32Array? packedInt32Array = UnsafeAs<PackedInt32Array?>(value);
+            *(NativeGodotPackedInt32Array*)destination = packedInt32Array is not null
+                ? NativeGodotPackedInt32Array.Create(packedInt32Array.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
         if (typeof(T) == typeof(PackedInt64Array))
         {
-            *(NativeGodotPackedInt64Array*)destination = (UnsafeAs<PackedInt64Array?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            PackedInt64Array? packedInt64Array = UnsafeAs<PackedInt64Array?>(value);
+            *(NativeGodotPackedInt64Array*)destination = packedInt64Array is not null
+                ? NativeGodotPackedInt64Array.Create(packedInt64Array.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
         if (typeof(T) == typeof(PackedFloat32Array))
         {
-            *(NativeGodotPackedFloat32Array*)destination = (UnsafeAs<PackedFloat32Array?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            PackedFloat32Array? packedFloat32Array = UnsafeAs<PackedFloat32Array?>(value);
+            *(NativeGodotPackedFloat32Array*)destination = packedFloat32Array is not null
+                ? NativeGodotPackedFloat32Array.Create(packedFloat32Array.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
         if (typeof(T) == typeof(PackedFloat64Array))
         {
-            *(NativeGodotPackedFloat64Array*)destination = (UnsafeAs<PackedFloat64Array?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            PackedFloat64Array? packedFloat64Array = UnsafeAs<PackedFloat64Array?>(value);
+            *(NativeGodotPackedFloat64Array*)destination = packedFloat64Array is not null
+                ? NativeGodotPackedFloat64Array.Create(packedFloat64Array.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
         if (typeof(T) == typeof(PackedStringArray))
         {
-            *(NativeGodotPackedStringArray*)destination = (UnsafeAs<PackedStringArray?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            PackedStringArray? packedStringArray = UnsafeAs<PackedStringArray?>(value);
+            *(NativeGodotPackedStringArray*)destination = packedStringArray is not null
+                ? NativeGodotPackedStringArray.Create(packedStringArray.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
         if (typeof(T) == typeof(PackedVector2Array))
         {
-            *(NativeGodotPackedVector2Array*)destination = (UnsafeAs<PackedVector2Array?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            PackedVector2Array? packedVector2Array = UnsafeAs<PackedVector2Array?>(value);
+            *(NativeGodotPackedVector2Array*)destination = packedVector2Array is not null
+                ? NativeGodotPackedVector2Array.Create(packedVector2Array.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
         if (typeof(T) == typeof(PackedVector3Array))
         {
-            *(NativeGodotPackedVector3Array*)destination = (UnsafeAs<PackedVector3Array?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            PackedVector3Array? packedVector3Array = UnsafeAs<PackedVector3Array?>(value);
+            *(NativeGodotPackedVector3Array*)destination = packedVector3Array is not null
+                ? NativeGodotPackedVector3Array.Create(packedVector3Array.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
         if (typeof(T) == typeof(PackedColorArray))
         {
-            *(NativeGodotPackedColorArray*)destination = (UnsafeAs<PackedColorArray?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            PackedColorArray? packedColorArray = UnsafeAs<PackedColorArray?>(value);
+            *(NativeGodotPackedColorArray*)destination = packedColorArray is not null
+                ? NativeGodotPackedColorArray.Create(packedColorArray.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
         if (typeof(T) == typeof(PackedVector4Array))
         {
-            *(NativeGodotPackedVector4Array*)destination = (UnsafeAs<PackedVector4Array?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            PackedVector4Array? packedVector4Array = UnsafeAs<PackedVector4Array?>(value);
+            *(NativeGodotPackedVector4Array*)destination = packedVector4Array is not null
+                ? NativeGodotPackedVector4Array.Create(packedVector4Array.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
         if (typeof(T) == typeof(GodotArray))
         {
-            *(NativeGodotArray*)destination = (UnsafeAs<GodotArray?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            GodotArray? godotArray = UnsafeAs<GodotArray?>(value);
+            *(NativeGodotArray*)destination = godotArray is not null
+                ? NativeGodotArray.Create(godotArray.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
         if (typeof(T) == typeof(GodotDictionary))
         {
-            *(NativeGodotDictionary*)destination = (UnsafeAs<GodotDictionary?>(value)?.NativeValue ?? default).DangerousSelfRef;
+            GodotDictionary? godotDictionary = UnsafeAs<GodotDictionary?>(value);
+            *(NativeGodotDictionary*)destination = godotDictionary is not null
+                ? NativeGodotDictionary.Create(godotDictionary.NativeValue.DangerousSelfRef)
+                : default;
             return;
         }
 
