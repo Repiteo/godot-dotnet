@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -11,6 +11,10 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>godot-upgrade-assistant</ToolCommandName>
     <Description>CLI tool to upgrade Godot .NET projects.</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RollForward>LatestMajor</RollForward>
   </PropertyGroup>
 
   <ItemGroup>
