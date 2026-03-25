@@ -174,6 +174,6 @@ internal sealed class IOSPlatformExporter : PlatformExporter
             throw new InvalidOperationException(SR.InvalidOperation_GenerateXCFrameworkFailed);
         }
 
-        context.ExportPlugin.AddAppleEmbeddedPlatformBundleFile(xcFrameworkPath);
+        context.ExportPlugin.AddAppleEmbeddedPlatformEmbeddedFramework(xcFrameworkPath);
     }
 }
